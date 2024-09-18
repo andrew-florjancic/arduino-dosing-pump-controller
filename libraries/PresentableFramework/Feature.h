@@ -13,8 +13,8 @@ class Feature {
         // Constructor creates a new feature.
         Feature();
     protected:
-        // The Display object used to show Feature content to the user.
-        Display display;
+        // A pointer to the Display object used to show Feature content to the user.
+        Display* display;
 
         // Displays the feature.
         virtual void showFeature() = 0;
