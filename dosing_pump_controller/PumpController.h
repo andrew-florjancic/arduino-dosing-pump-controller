@@ -20,7 +20,7 @@ class PumpController {
         * @param pump_id: The identifier of the pump that will be controlled.
         * @param storage_manager: The StorageManager used to update pump settings.
         * @param motor: The motor connected to the pump head that will be controlled.*/
-        PumpController(StorageManager::PumpID pump_id, StorageManager& storage_manager, Motor motor);
+        PumpController(StorageManager::PumpID pump_id, StorageManager& storage_manager, Motor& motor);
 
         // Sets the controller's calibration completion function.
         // @param calibration_completion: A callback function to be executed when calibration has finished.
@@ -77,7 +77,7 @@ class PumpController {
     private:
         enum PumpState { off, manual, calibrating, dosing }; // Possible states the pump can be in.
         PumpState pump_state = off; // The current state of the pump.
-        const StorageManager& storage_manager; // The StorageManager used to update settings.
+        const StorageManager storage_manager; // The StorageManager used to update settings.
         const Motor motor; // The Motor being controlled.
         uint8_t duty_cycle; // The current duty_cycle pump setting value.
         uint8_t dose_frequency; // The current dose_frequency pump setting value.

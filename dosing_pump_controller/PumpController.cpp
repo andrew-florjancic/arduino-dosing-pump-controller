@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "PumpController.h"
 
-PumpController::PumpController(StorageManager::PumpID pump_id, StorageManager& storage_manager, Motor motor)
+PumpController::PumpController(StorageManager::PumpID pump_id, StorageManager& storage_manager, Motor& motor)
 : pump_id(pump_id), storage_manager(storage_manager), motor(motor) {
     duty_cycle = storage_manager.getDutyCycle(pump_id);
     dose_duration = storage_manager.getDoseDuration(pump_id);
