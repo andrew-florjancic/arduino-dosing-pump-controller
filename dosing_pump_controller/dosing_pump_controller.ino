@@ -15,11 +15,11 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 Display display(lcd, lcd_rows, lcd_columns, &lcd_backlight, nullptr);
 
 // Create menus now so that the completion methods can call the menu's present() method
-Menu main_menu("Main Menu", new DoublyLinkedList<MenuItem*>());
-Menu pump1_menu("Pump 1", new DoublyLinkedList<MenuItem*>());
-Menu pump2_menu("Pump 2", new DoublyLinkedList<MenuItem*>());
-Menu pump3_menu("Pump 3", new DoublyLinkedList<MenuItem*>());
-Menu settings_menu("Settings", new DoublyLinkedList<MenuItem*>());
+Menu main_menu("Main Menu");
+Menu pump1_menu("Pump 1");
+Menu pump2_menu("Pump 2");
+Menu pump3_menu("Pump 3");
+Menu settings_menu("Settings");
 
 // Returns control to the main_menu, to be used as the completion for menu items added to the main_menu.
 void mainMenuReturnControl() {
