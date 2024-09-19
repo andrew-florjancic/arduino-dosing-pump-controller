@@ -71,15 +71,14 @@ void buttonInput() {
   rotary_encoder.buttonInput(millis());
 }
 
-// A callback function the RotaryEncoder will call every time a true button press is detected.
-void buttonPressed() {
-  // TODO: send an input command to the main menu
+// A callback function the RotaryEncoder will call every time a RotaryEncoder Action is detected.
+void actionDetected(RotaryEncoder::Actions action) {
+  main_menu.sendAction(action);
 }
-
 
 void setup() {
   display.setup();
-  rotary_encoder.setup(&buttonInput, &buttonPressed);
+  rotary_encoder.setup(&buttonInput, &actionDetected);
 
   // Configure the main_menu then add items.
   // I don't think I'll ever dismiss the main_menu so this completion can probably be a nullptr.
