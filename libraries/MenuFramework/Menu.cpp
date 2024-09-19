@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "Menu.h"
 
-Menu::Menu(String title, DoublyLinkedList<MenuItem*>* menu) : MenuItem(title, ItemType::menu), menu(menu) {}
+Menu::Menu(String title, DoublyLinkedList<MenuItem*>* menu) : MenuItem(title, false), menu(menu) {}
 
 void Menu::addMenuItem(MenuItem* item, void (*completion)()) {
     item->configurePresentable(display, completion);
@@ -18,7 +18,7 @@ void Menu::rightAction() {
 }
 
 void Menu::selectAction() {
-    if(menu->current_item->data->item_type == back) {
+    if(menu->current_item->data->isReturnItem) {
         completePresentation();
         return;
     }

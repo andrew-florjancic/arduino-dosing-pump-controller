@@ -9,23 +9,16 @@
 // An item in a menu or a submenu in a supermenu.
 class MenuItem : public Presentable {
     public:
-        /* Type of MenuItem.
-        *
-        * `menu`: Presents a list of menu items to select from and will host a menu item when it is selected.
-        * `item`: Presents its Feature and does not host any other Presentables.
-        * `back`: Is a special non-functional MenuItem that when selected indicates to the menu that the menu should be dismissed.*/
-        enum ItemType { menu, item, back };
-
-        // The MenuItem's ItemType.
-        const ItemType item_type;
+        // True if the MenuItem is a return menu item. 
+        const bool isReturnItem;
 
         // The title of the item that will be displayed by the menu.
         const String title;
 
         // Constructor creates a MenuItem.
         // @param title: The title of the item.
-        // @param item_type: The type of item.
-        MenuItem(String title, ItemType item_type);
+        // @param isReturnItem: True if the item is a return menu item.
+        MenuItem(String title, bool isReturnItem);
 };
 
 #endif
