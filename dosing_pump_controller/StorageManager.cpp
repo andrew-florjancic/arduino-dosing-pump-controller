@@ -23,7 +23,7 @@ void StorageManager::saveSettings() {
 }
 
 void StorageManager::resetPumpSettings(PumpID pump_id) {
-    getPumpInfo(pump_id) = defaults.pump_settings;
+    getPumpSettings(pump_id) = defaults.pump_settings;
     saveSettings();
 }
 
@@ -32,7 +32,7 @@ void StorageManager::factoryReset() {
     // TODO: Restart the device. The board has a physical reset pin but there should also be a way to do this from software.
 }
 
-StorageManager::AppSettings::PumpSettings StorageManager::getPumpInfo(PumpID pump_id) {
+StorageManager::AppSettings::PumpSettings &StorageManager::getPumpSettings(PumpID pump_id) {
     switch(pump_id) {
         case pump_1: return current_settings.pump1;
         case pump_2: return current_settings.pump2;
@@ -59,37 +59,37 @@ void StorageManager::updateContrast(uint8_t new_value) {
 }
 
 uint8_t StorageManager::getDutyCycle(PumpID pump_id) {
-    return getPumpInfo(pump_id).duty_cycle;
+    return getPumpSettings(pump_id).duty_cycle;
 }
 
 void StorageManager::updateDutyCycle(PumpID pump_id, uint8_t new_value) {
-    getPumpInfo(pump_id).duty_cycle = new_value;
+    getPumpSettings(pump_id).duty_cycle = new_value;
     saveSettings();
 }
 
 uint8_t StorageManager::getDoseFrequency(PumpID pump_id) {
-    return getPumpInfo(pump_id).dose_frequency;
+    return getPumpSettings(pump_id).dose_frequency;
 }
 
 void StorageManager::updateDoseFrequency(PumpID pump_id, uint8_t new_value) {
-    getPumpInfo(pump_id).dose_frequency = new_value;
+    getPumpSettings(pump_id).dose_frequency = new_value;
     saveSettings();
 }
 
 unsigned long StorageManager::getDoseDuration(PumpID pump_id) {
-   return getPumpInfo(pump_id).dose_duration;
+   return getPumpSettings(pump_id).dose_duration;
 }
 
 void StorageManager::updateDoseDuration(PumpID pump_id, unsigned long new_value) {
-    getPumpInfo(pump_id).dose_duration = new_value;
+    getPumpSettings(pump_id).dose_duration = new_value;
     saveSettings();
 }
 
 bool StorageManager::getDosingEnabled(PumpID pump_id) {
-    return getPumpInfo(pump_id).dosing_enabled;
+    return getPumpSettings(pump_id).dosing_enabled;
 }
 
 void StorageManager::updateDosingEnabled(PumpID pump_id, bool new_value) {
-    getPumpInfo(pump_id).dosing_enabled = new_value;
+    getPumpSettings(pump_id).dosing_enabled = new_value;
     saveSettings();
 }
