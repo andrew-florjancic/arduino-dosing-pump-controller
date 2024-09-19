@@ -14,17 +14,22 @@ class PumpController {
         const StorageManager::PumpID pump_id;
 
         // Number of seconds in 24 hours.
-        const unsigned long day_length = 86400; // TODO: does this belong somewhere else? 
+        const unsigned long day_length = 86400;
 
         /* Constructor creates a PumpController.
         * @param pump_id: The identifier of the pump that will be controlled.
-        * @param storage_manager: A pointer to the storage manager. TODO: should this be a pointer?
+        * @param storage_manager: The StorageManager used to update pump settings.
         * @param motor: The motor connected to the pump head that will be controlled.*/
         PumpController(StorageManager::PumpID pump_id, StorageManager& storage_manager, Motor motor);
 
         // Sets the controller's calibration completion function.
         // @param calibration_completion: A callback function to be executed when calibration has finished.
         void setup(void (*calibration_completion)());
+
+        // Checks the pump status and turns the pump on or off if the right conditions are met.
+        // This should called in the Arduino's `loop()` function in the main sketch.
+        // @param current_time: The current time in milliseconds.
+        void pollPumpStatus(unsigned long current_time);
 
         // Turns the pump on. For manual operation only
         void activate();
@@ -52,7 +57,7 @@ class PumpController {
         uint8_t getDoseFrequency();
 
         // @return True, if the pump should dose its current dosing schedule, otherwise false.
-        bool getDosingEnabled(); // TODO: rename to shouldDoseOnSchedule()?
+        bool getDosingEnabled();
 
         // Updates the duty_cycle pump setting with a new value.
         // @param new_value: The new duty_cycle value.
