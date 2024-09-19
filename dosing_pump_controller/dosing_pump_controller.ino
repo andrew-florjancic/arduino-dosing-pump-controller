@@ -8,6 +8,7 @@
 #include <Motor.h>
 #include "StorageManager.h"
 #include "PumpController.h"
+#include "DisplayController.h"
 
 StorageManager storage_manager;
 
@@ -18,6 +19,7 @@ const uint8_t lcd_rows = 2, lcd_columns = 16, lcd_backlight = 3;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 // TODO: Connect contrast pin to one of the Arduino PWM pins - currently controlling LCD contrast with a potentiometer.
 Display display(lcd, lcd_rows, lcd_columns, &lcd_backlight, nullptr);
+DisplayController display_controller(display, storage_manager);
 
 // TODO: Update this with the actual pins connected to the motors
 Motor motor1(nullptr, nullptr);
