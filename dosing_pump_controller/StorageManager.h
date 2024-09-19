@@ -139,6 +139,6 @@ class StorageManager {
         // Returns the current pump settings for the specified pump.
         // @param pump_id: The identifier of the pump.
         // @return The current pump settings for the pump associated with the provided PumpID.
-        StorageManager::AppSettings::PumpSettings getPumpInfo(StorageManager::PumpID pump_id);
+        StorageManager::AppSettings::PumpSettings &getPumpSettings(StorageManager::PumpID pump_id);
 };
 #endif
