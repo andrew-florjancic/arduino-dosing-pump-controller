@@ -5,6 +5,7 @@
 #include <Display.h>
 #include <MenuItem.h>
 #include <Menu.h>
+#include <Motor.h>
 #include "StorageManager.h"
 
 StorageManager storage_manager;
@@ -16,6 +17,11 @@ const uint8_t lcd_rows = 2, lcd_columns = 16, lcd_backlight = 3;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 // TODO: Connect contrast pin to one of the Arduino PWM pins - currently controlling LCD contrast with a potentiometer.
 Display display(lcd, lcd_rows, lcd_columns, &lcd_backlight, nullptr);
+
+// TODO: Update this with the actual pins connected to the motors
+Motor motor1(nullptr, nullptr);
+Motor motor2(nullptr, nullptr);
+Motor motor3(nullptr, nullptr);
 
 // Create menus now so that the completion methods can call the menu's present() method
 Menu main_menu("Main Menu");
