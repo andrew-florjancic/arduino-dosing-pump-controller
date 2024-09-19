@@ -14,7 +14,7 @@ class Menu: public MenuItem {
         const String cursor = "-> ";
 
         // A list containing items that the user can select and display.
-        const DoublyLinkedList<MenuItem*>* menu;
+        DoublyLinkedList<MenuItem*> menu = DoublyLinkedList<MenuItem*>();
     protected:
         // Displays the menu starting from the menu's current item.
         void showFeature();
@@ -33,8 +33,7 @@ class Menu: public MenuItem {
     public:
         // Constructor creates a menu.
         // @param: title: The title of the menu that will be used if this menu is part of another menu.
-        // @param menu: A pointer to the menu of menu items. The menu should be empty.
-        Menu(String title, DoublyLinkedList<MenuItem*>* menu);
+        Menu(String title);
 
         // Returns control to the menu after one of its guests dismisses themselves.
         void returnControl();
