@@ -5,6 +5,9 @@
 #include <Display.h>
 #include <MenuItem.h>
 #include <Menu.h>
+#include "StorageManager.h"
+
+StorageManager storage_manager;
 
 // TODO: Throw all these pins in a struct or something that can represent the Nano Every board that is being used.
 const uint8_t rs = 12, en = 14, d4 = 15, d5 = 16, d6 = 17, d7 = 18;
