@@ -79,9 +79,9 @@ class PumpController {
         PumpState pump_state = off; // The current state of the pump.
         const StorageManager storage_manager; // The StorageManager used to update settings.
         const Motor motor; // The Motor being controlled.
-        uint8_t duty_cycle; // The current duty_cycle pump setting value.
-        uint8_t dose_frequency; // The current dose_frequency pump setting value.
-        unsigned long dose_duration; // The current dose_duration pump setting value.
+        uint8_t duty_cycle; // The current duty_cycle pump setting value, the PWM duty cycle the pump will operate at.
+        uint8_t dose_frequency; // The current dose_frequency pump setting value, number of times per day the dose should be delivered.
+        unsigned long dose_duration; // The current dose_duration pump setting value, how long each dose will last in milliseconds.
         unsigned long previous_dose_start_time; // The time, in milliseconds, when the previous dose started.
         unsigned long calibration_duration = 5000; // The length of time, in milliseconds, pump calibration will last. TODO: update this to the actual calibration duration
         unsigned long calibration_start_time = 0; // The time when calibration started.
