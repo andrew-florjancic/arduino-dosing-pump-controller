@@ -7,6 +7,7 @@
 #include <Menu.h>
 #include <Motor.h>
 #include "StorageManager.h"
+#include "PumpController.h"
 
 StorageManager storage_manager;
 
@@ -22,6 +23,10 @@ Display display(lcd, lcd_rows, lcd_columns, &lcd_backlight, nullptr);
 Motor motor1(nullptr, nullptr);
 Motor motor2(nullptr, nullptr);
 Motor motor3(nullptr, nullptr);
+
+PumpController pump1_controller(StorageManager::PumpID::pump_1, storage_manager, motor1);
+PumpController pump2_controller(StorageManager::PumpID::pump_2, storage_manager, motor2);
+PumpController pump3_controller(StorageManager::PumpID::pump_3, storage_manager, motor3);
 
 // Create menus now so that the completion methods can call the menu's present() method
 Menu main_menu("Main Menu");
