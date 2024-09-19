@@ -18,11 +18,11 @@ void Menu::rightAction() {
 }
 
 void Menu::selectAction() {
-    if(menu.current_item->data->isReturnItem) {
+    if(menu.getCurrentItem()->data->isReturnItem) {
         completePresentation();
         return;
     }
-    host(menu.current_item->data);
+    host(menu.getCurrentItem()->data);
 }
 
 void Menu::returnControl() {
@@ -31,7 +31,7 @@ void Menu::returnControl() {
 
 void Menu::showFeature() {
     display->lcd.clear();
-    DLLNode<MenuItem*>* current_node = menu.current_item;
+    DLLNode<MenuItem*>* current_node = menu.getCurrentItem();
     for(uint8_t row = 0; row < display->rows; row++) {
         if(current_node == nullptr) { break; }
         display->lcd.setCursor(cursor.length(), row);

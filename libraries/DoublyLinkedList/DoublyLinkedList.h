@@ -11,11 +11,13 @@ class DoublyLinkedList {
     private:
         DLLNode<T>* head = nullptr; // A pointer to the first item in the list.
         DLLNode<T>* tail = nullptr; // A pointer to the last item in the list.
-    public:
         DLLNode<T>* current_item = nullptr; // A pointer to the current item in the list.
-
+    public:
         // Constructor creates an empty DoublyLinkedList. 
         DoublyLinkedList();
+
+        // Returns a pointer to the current item.
+        DLLNode<T>* getCurrentItem();
 
         // Sets the current item to the next item if one exists.
         void nextItem();
@@ -36,6 +38,11 @@ class DoublyLinkedList {
 
 template <class T> 
 DoublyLinkedList<T>::DoublyLinkedList() { }
+
+template <class T> 
+DLLNode<T>* DoublyLinkedList<T>::getCurrentItem() {
+    return current_item;
+}
 
 template <class T> 
 void DoublyLinkedList<T>::nextItem() {
