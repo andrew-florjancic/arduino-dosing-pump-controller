@@ -6,6 +6,7 @@
 #include <MenuItem.h>
 #include <Menu.h>
 #include <Motor.h>
+#include <RotaryEncoder.h>
 #include "StorageManager.h"
 #include "PumpController.h"
 #include "DisplayController.h"
@@ -62,9 +63,23 @@ void settingsMenuReturnControl() {
   settings_menu.present();
 }
 
+RotaryEncoder rotary_encoder(1, 2, 21, 150); // TODO add actual pin values. Also 150 milliseconds sounds high for the debounce duration.
+
+// Triggered by the ISR for the Rotary Encoder push button.
+// Sends an input to the rotary encoder to handle debounce
+void buttonInput() {
+  rotary_encoder.buttonInput(millis());
+}
+
+// A callback function the RotaryEncoder will call every time a true button press is detected.
+void buttonPressed() {
+  // TODO: send an input command to the main menu
+}
+
 
 void setup() {
   display.setup();
+  rotary_encoder.setup(&buttonInput, &buttonPressed);
 
   // Configure the main_menu then add items.
   // I don't think I'll ever dismiss the main_menu so this completion can probably be a nullptr.
