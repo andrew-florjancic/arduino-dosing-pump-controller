@@ -15,6 +15,10 @@ class RotaryEncoder {
         const unsigned long debounce_duration; // Length of time in milliseconds to account for debounce and ignore input.
         unsigned long last_button_press = 0; // The last time the button was pressed.
     public:
+        // Input actions that a RotaryEncoder can handle.
+        // `left`, `right`, and `select`.
+        enum Actions { left, right, select };
+
         // Constructor creates a RotaryEncoder.
         // @param enca_pin: The Arduino Pin# connected to the rotary encoder ENCA pin.
         // @param encb_pin: The Arduino Pin# connected to the rotary encoder ENCB pin.

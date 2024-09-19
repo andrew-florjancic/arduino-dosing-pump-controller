@@ -4,21 +4,22 @@
 #define Presentable_h
 
 #include <Display.h>
+#include <RotaryEncoder.h>
 #include "Feature.h"
 
 /*
  * A Presentable is a special type of Feature that can present its feature and also host other Presentables so they can present their own features.
  * There are five stages in the Presentable lifecycle.
  * 1: `Inactive`: All Presentables start their life here as they wait to be presented. Once a Presentable has been presented, it will transition to
- * the Presentation stage. Any input sent to an inactive Presentable will be ignored.
+ * the Presentation stage. Any action sent to an inactive Presentable will be ignored.
  * 2: `Presentation`: Is the main stage where the Presentable will present its Feature until it chooses to host another Presentable or is dismissed
  * when the feature is complete. If the Presentable opts to host a guest Presentable, then `host(Presentable* guest)` should be called which will
  * transition the Presentable to the Hosting stage and allow the guest to present. When the Feature is complete and ready to be dismissed,
- * `completePresentation()` should be called which will advance the Presentable to the Dismissing stage. Input sent to the Presentable during the
+ * `completePresentation()` should be called which will advance the Presentable to the Dismissing stage. Actions sent to the Presentable during the
  * Presentation stage will trigger one of the following Action methods to execute: `leftAction()`, `rightAction()`, `selectAction()`.
  * 3: `Hosting`: Is an optional stage where the Presentable acts as a host for another Presentable called the guest. Hosting a guest means that the
  * host will give control to the guest and allow the guest to present its own feature. Control will be returned to the host when the guest is
- * dismissed. During the Hosting stage, any input commands sent to the host will be transported to the guest that is presenting.
+ * dismissed. During the Hosting stage, any Actions sent to the host will be transported to the guest that is presenting.
  * 4: `Dismissing`: Is the final stage in the Presentable lifecycle which allows the Presentable a chance to perform any last minute cleanup tasks in
  * `presentableWillDismiss()`. When a Presentable is dismissed, it will become inactive and wait until it is called to present again.
  * 5: `Error`: TODO: I'm not entirely sure I want to include this as a stage in the Presentable lifecycle. I think it fits better as part of a
@@ -26,10 +27,6 @@
  */
 class Presentable : public Feature {
     public:
-        // Inputs that can be sent to a Presentable.
-        // `left`, `right`, and `select`.
-        enum InputCommands { left, right, select };
-
         // Constructor creates a new Presentable.
         Presentable();
 
@@ -38,9 +35,9 @@ class Presentable : public Feature {
         // @param completion: A callback function that will be called when the Presentable is dismissed. This function should return control to the host
         void configurePresentable(Display* display, void (*completion)());
 
-        // Sends input to the Presentable.
-        // @param command: The input being sent to the Presentable.
-        void inputCommand(Presentable::InputCommands command);
+        // Sends an action to the Presentable.
+        // @param action: The action being sent to the Presentable.
+        void sendAction(RotaryEncoder::Actions action);
 
         // Starts the Presentable lifecycle or returns control to the Presentable after a guest is dismissed.
         void present();
@@ -59,10 +56,6 @@ class Presentable : public Feature {
         // True if the Presentable is hosting another Presentable. When control is returned to the Presentable, then it is no longer hosting.
         bool isHosting();
 
-        // Transports input commands to the guest being presented.
-        // @param command: The input to be sent to the guest.
-        void transportCommand(Presentable::InputCommands command);
-
         // Presents another Presentable, the guest, and yields control until the guest is dismissed.
         // @param guest: A pointer to the guest Presentable.
         void host(Presentable* guest);
@@ -70,13 +63,13 @@ class Presentable : public Feature {
         // This method is called just before the Presentable is dismissed which provides an opportunity to perform any cleanup tasks to prepare for the next presentation. 
         virtual void presentableWillDismiss() = 0;
 
-        // Executes code triggered by a left input command.
+        // Executes code triggered by a left Action sent to the Presentable.
         virtual void leftAction() = 0;
 
-        // Executes code triggered by a right input command.
+        // Executes code triggered by a right Action sent to the Presentable.
         virtual void rightAction() = 0;
 
-        // Executes code triggered by a select input command.
+        // Executes code triggered by a select Action sent to the Presentable.
         virtual void selectAction() = 0;
     
     private:
@@ -103,6 +96,10 @@ class Presentable : public Feature {
         // Resets the presentation state to inactive and calls the completion function to return control to the host. Any Presentable being hosted
         // must be dismissed before the host Presentable can be dismissed. Calling `dismiss()` while activly hosting will do nothing.
         void dismiss();
+
+        // Transports an action to the guest being presented.
+        // @param action: The action to be sent to the guest.
+        void transportAction(RotaryEncoder::Actions action);
 };
 
 #endif

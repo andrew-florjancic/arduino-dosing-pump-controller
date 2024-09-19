@@ -46,16 +46,16 @@ bool Presentable::isHosting() {
     return guest != nullptr;
 }
 
-void Presentable::inputCommand(Presentable::InputCommands command) {
-     // TODO: It might be possible that inputCommand() gets called after a guest Presentable is set but before the guest has a chance to present due
+void Presentable::sendAction(RotaryEncoder::Actions action) {
+     // TODO: It might be possible that sendAction() gets called after a guest Presentable is set but before the guest has a chance to present due
      // to interrupts caused by input. Consider disabling interrupts during transitional states.
     if(!isActive()) { return; }
-     // If hosting, then transport input commands to the guest.
-    if(isHosting()) { transportCommand(command); return; }
-    switch(command) {
-        case left: leftAction(); break;
-        case right: rightAction(); break;
-        case select: selectAction(); break;
+     // If hosting, then transport the action to the guest.
+    if(isHosting()) { transportAction(action); return; }
+    switch(action) {
+        case RotaryEncoder::Actions::left : leftAction(); break;
+        case RotaryEncoder::Actions::right: rightAction(); break;
+        case RotaryEncoder::Actions::select: selectAction(); break;
     }
     perform();
 }
@@ -66,6 +66,6 @@ void Presentable::host(Presentable* guest) {
     guest->present();
 }
 
-void Presentable::transportCommand(Presentable::InputCommands command) { 
-    guest->inputCommand(command);
+void Presentable::transportAction(RotaryEncoder::Actions action) { 
+    guest->sendAction(action);
 }
