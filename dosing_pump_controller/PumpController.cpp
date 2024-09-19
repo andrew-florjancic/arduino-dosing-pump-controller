@@ -15,6 +15,22 @@ void PumpController::setup(void (*calibration_completion)()) {
     motor.setup();
 }
 
+void PumpController::pollPumpStatus(unsigned long current_time) {
+    switch(pump_state) {
+        case off: break;
+        case calibrating:
+            // Deactivate the pump if the calibration period has ended.
+            if(current_time - calibration_start_time >= calibration_duration) {
+                deactivate();
+                calibration_completion();
+            }
+            break;
+        case dosing:
+        // TODO add dosing
+        break;
+    }
+}
+
 void PumpController::activate() {
     pump_state = manual;
     motor.forward(duty_cycle);

@@ -83,6 +83,8 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  unsigned long current_time = millis();
+  pump1_controller.pollPumpStatus(current_time);
+  pump2_controller.pollPumpStatus(current_time); 
+  pump3_controller.pollPumpStatus(current_time); 
 }
