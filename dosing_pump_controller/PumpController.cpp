@@ -4,10 +4,10 @@
 
 PumpController::PumpController(StorageManager::PumpID pump_id, StorageManager& storage_manager, Motor motor)
 : pump_id(pump_id), storage_manager(storage_manager), motor(motor) {
-    this->duty_cycle = storage_manager.getDutyCycle(pump_id);
-    this->dose_duration = storage_manager.getDoseDuration(pump_id);
-    this->dose_frequency = storage_manager.getDoseFrequency(pump_id);
-    this->dosing_enabled = storage_manager.getDosingEnabled(pump_id);
+    duty_cycle = storage_manager.getDutyCycle(pump_id);
+    dose_duration = storage_manager.getDoseDuration(pump_id);
+    dose_frequency = storage_manager.getDoseFrequency(pump_id);
+    dosing_enabled = storage_manager.getDosingEnabled(pump_id);
 }
 
 void PumpController::setup(void (*calibration_completion)()) {
