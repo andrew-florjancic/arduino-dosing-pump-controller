@@ -83,7 +83,7 @@ class PumpController {
         uint8_t dose_frequency; // The current dose_frequency pump setting value, number of times per day the dose should be delivered.
         unsigned long dose_duration; // The current dose_duration pump setting value, how long each dose will last in milliseconds.
         unsigned long previous_dose_start_time; // The time, in milliseconds, when the previous dose started.
-        unsigned long calibration_duration = 5000; // The length of time, in milliseconds, pump calibration will last. TODO: update this to the actual calibration duration
+        const unsigned long calibration_duration = 100000; // The length of time, in milliseconds, pump calibration will last. 100 seconds at 1 mL/s.
         unsigned long calibration_start_time = 0; // The time when calibration started.
         void (*calibration_completion)(); // A callback function to be executed when calibration has finished.
         bool dosing_enabled; // True if the pump should be dosing during its set dosing schedule.
