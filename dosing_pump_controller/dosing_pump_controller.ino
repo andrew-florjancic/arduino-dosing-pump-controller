@@ -39,37 +39,31 @@ Menu pump3_menu("Pump 3");
 Menu settings_menu("Settings");
 
 // Returns control to the main_menu, to be used as the completion for menu items added to the main_menu.
-void mainMenuReturnControl() {
-  main_menu.present();
-}
+void mainMenuReturnControl() { main_menu.present(); }
 
 // Returns control to the pump1_menu, to be used as the completion for menu items added to the pump1_menu.
-void pump1ReturnControl() {
-  pump1_menu.present();
-}
+void pump1ReturnControl() { pump1_menu.present(); }
 
 // Returns control to the pump2_menu, to be used as the completion for menu items added to the pump2_menu.
-void pump2ReturnControl() {
-  pump2_menu.present();
-}
+void pump2ReturnControl() { pump2_menu.present(); }
 
 // Returns control to the pump3_menu, to be used as the completion for menu items added to the pump3_menu.
-void pump3ReturnControl() {
-  pump3_menu.present();
-}
+void pump3ReturnControl() { pump3_menu.present(); }
 
 // Returns control to the settings_menu, to be used as the completion for menu items added to the settings_menu.
-void settingsMenuReturnControl() {
-  settings_menu.present();
-}
+void settingsMenuReturnControl() { settings_menu.present(); }
 
-RotaryEncoder rotary_encoder(1, 2, 21, 150); // TODO add actual pin values. Also 150 milliseconds sounds high for the debounce duration.
+RotaryEncoder rotary_encoder(19, 20, 21, 150); // TODO add actual pin values. Also 150 milliseconds sounds high for the debounce duration.
 
 // Triggered by the ISR for the Rotary Encoder push button.
 // Sends an input to the rotary encoder to handle debounce
-void buttonInput() {
-  rotary_encoder.buttonInput(millis());
-}
+void buttonInput() { rotary_encoder.buttonInput(millis()); }
+
+// Triggered by the ISR for the rotary encoder A pin value changes.
+void encoderAInput() { rotary_encoder.encodeA(); }
+
+// Triggered by the ISR for the rotary encoder B pin value changes.
+void encoderBInput() { rotary_encoder.encodeB(); }
 
 // A callback function the RotaryEncoder will call every time a RotaryEncoder Action is detected.
 void actionDetected(RotaryEncoder::Actions action) {
@@ -78,7 +72,7 @@ void actionDetected(RotaryEncoder::Actions action) {
 
 void setup() {
   display.setup();
-  rotary_encoder.setup(&buttonInput, &actionDetected);
+  rotary_encoder.setup(&encoderAInput, &encoderBInput, &buttonInput, &actionDetected);
 
   // Configure the main_menu then add items.
   // I don't think I'll ever dismiss the main_menu so this completion can probably be a nullptr.
