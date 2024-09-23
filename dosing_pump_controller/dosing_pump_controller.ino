@@ -30,7 +30,8 @@ Display display(lcd, lcd_rows, lcd_columns, &lcd_backlight, nullptr);
 DisplayController display_controller(display, storage_manager);
 
 // TODO: Update this with the actual pins connected to the motors
-Motor motor1(9, 10);
+const uint8_t motor1_in1 = 9, motor1_in2 = 10;
+Motor motor1(&motor1_in1, &motor1_in2);
 Motor motor2(nullptr, nullptr);
 Motor motor3(nullptr, nullptr);
 
