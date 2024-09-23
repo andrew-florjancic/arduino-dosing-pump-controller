@@ -97,7 +97,7 @@ void setup() {
 
   // TODO: Add items to the settings_menu
   settings_menu.addMenuItem(new ReturnMenuItem(), &settingsMenuReturnControl);
-  settings_menu.addMenuItem(new BrightnessMenuItem(&display_controller), &settingsMenuReturnControl);
+  settings_menu.addMenuItem(new BrightnessMenuItem(display_controller), &settingsMenuReturnControl);
 
   main_menu.present();
 }
