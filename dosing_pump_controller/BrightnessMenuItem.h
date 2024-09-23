@@ -16,7 +16,7 @@ class BrightnessMenuItem : public MenuItem {
         // The message displayed to the user when selecting a brightness value.
         const String input_message = "Brightness: ";
 
-        // Displays the current brightness level to the user
+        // Displays the current brightness level to the user.
         void showFeature();
 
         // Required method, unused.
@@ -32,7 +32,7 @@ class BrightnessMenuItem : public MenuItem {
         void selectAction();
     public:
 
-        // Constructor creates a BrightnessMenuItem
+        // Constructor creates a BrightnessMenuItem.
         // @param display_controller: The DisplayController that will be used to update and save brightness settings.
         BrightnessMenuItem(DisplayController& display_controller);
 };
