@@ -20,7 +20,7 @@ void PumpController::pollPumpStatus(unsigned long current_time) {
         case off: break;
         case calibrating:
             // Deactivate the pump if the calibration period has ended.
-            if(current_time - calibration_start_time >= calibration_duration) {
+            if((calibration_start_time + calibration_duration) <= current_time) {
                 deactivate();
                 calibration_completion();
             }
@@ -42,8 +42,8 @@ void PumpController::deactivate() {
 }
 
 void PumpController::calibrate(unsigned long current_time) {
-    pump_state = calibrating;
     calibration_start_time = current_time;
+    pump_state = calibrating;
     motor.forward(duty_cycle);
 }
 
