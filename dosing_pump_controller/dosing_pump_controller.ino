@@ -11,6 +11,7 @@
 #include "PumpController.h"
 #include "DisplayController.h"
 #include "ReturnMenuItem.h"
+#include "BrightnessMenuItem.h"
 
 StorageManager storage_manager;
 
@@ -71,6 +72,7 @@ void actionDetected(RotaryEncoder::Actions action) { main_menu.sendAction(action
 
 void setup() {
   display.setup();
+  display_controller.setup();
   rotary_encoder.setup(&encoderAInput, &encoderBInput, &buttonInput, &actionDetected);
 
   // Configure the main_menu then add items.
@@ -95,6 +97,7 @@ void setup() {
 
   // TODO: Add items to the settings_menu
   settings_menu.addMenuItem(new ReturnMenuItem(), &settingsMenuReturnControl);
+  settings_menu.addMenuItem(new BrightnessMenuItem(&display_controller), &settingsMenuReturnControl);
 
   main_menu.present();
 }
