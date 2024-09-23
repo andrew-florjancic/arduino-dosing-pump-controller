@@ -33,7 +33,7 @@ class CalibratePumpMenuItem : public MenuItem {
         // A Feature message to be displayed during after calibration is complete.
         const String complete_message = "Complete";
 
-        uint8_t duty_cycle = 0; // The current duty cycle the pump will operate at.
+        uint8_t duty_cycle; // The current duty cycle the pump will operate at.
 
         // Displays the current state of the Feature.
         void showFeature();
