@@ -12,6 +12,7 @@
 #include "DisplayController.h"
 #include "ReturnMenuItem.h"
 #include "BrightnessMenuItem.h"
+#include "ContrastMenuItem.h"
 
 StorageManager storage_manager;
 
@@ -98,6 +99,7 @@ void setup() {
   // TODO: Add items to the settings_menu
   settings_menu.addMenuItem(new ReturnMenuItem(), &settingsMenuReturnControl);
   settings_menu.addMenuItem(new BrightnessMenuItem(display_controller), &settingsMenuReturnControl);
+  settings_menu.addMenuItem(new ContrastMenuItem(display_controller), &settingsMenuReturnControl);
 
   main_menu.present();
 }
