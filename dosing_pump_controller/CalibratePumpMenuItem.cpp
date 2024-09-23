@@ -42,7 +42,6 @@ void CalibratePumpMenuItem::selectAction() {
 }
 
 void CalibratePumpMenuItem::calibrationComplete() {
-    Serial.println("Calibration complete");
     feature_state = complete;
     showFeature();
 }
