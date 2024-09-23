@@ -66,9 +66,7 @@ void encoderAInput() { rotary_encoder.encodeA(); }
 void encoderBInput() { rotary_encoder.encodeB(); }
 
 // A callback function the RotaryEncoder will call every time a RotaryEncoder Action is detected.
-void actionDetected(RotaryEncoder::Actions action) {
-  main_menu.sendAction(action);
-}
+void actionDetected(RotaryEncoder::Actions action) { main_menu.sendAction(action); }
 
 void setup() {
   display.setup();
