@@ -22,7 +22,7 @@ class DoublyLinkedList {
         // Returns a pointer to the first item in the list.
         DLLNode<T>* getHead();
 
-        // Returns a pointer to the last item in the list
+        // Returns a pointer to the last item in the list.
         DLLNode<T>* getTail();
 
         // Sets the current item to the next item if one exists.
