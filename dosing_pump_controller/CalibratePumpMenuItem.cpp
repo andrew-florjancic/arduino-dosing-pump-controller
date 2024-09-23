@@ -2,7 +2,9 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "CalibratePumpMenuItem.h"
 
-CalibratePumpMenuItem::CalibratePumpMenuItem(PumpController& pump_controller) : MenuItem("Calibrate", false), pump_controller(pump_controller) {}
+CalibratePumpMenuItem::CalibratePumpMenuItem(PumpController& pump_controller) : MenuItem("Calibrate", false), pump_controller(pump_controller) {
+    duty_cycle = pump_controller.getDutyCycle();
+}
 
 void CalibratePumpMenuItem::showFeature() {
     display->lcd.clear();
@@ -37,7 +39,6 @@ void CalibratePumpMenuItem::selectAction() {
         case calibrating: break;
         case complete: completePresentation(); break;
     }
-
 }
 
 void CalibratePumpMenuItem::calibrationComplete() {
