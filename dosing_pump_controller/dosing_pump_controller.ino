@@ -10,6 +10,7 @@
 #include "StorageManager.h"
 #include "PumpController.h"
 #include "DisplayController.h"
+#include "ReturnMenuItem.h"
 
 StorageManager storage_manager;
 
@@ -42,13 +43,13 @@ Menu settings_menu("Settings");
 void mainMenuReturnControl() { main_menu.present(); }
 
 // Returns control to the pump1_menu, to be used as the completion for menu items added to the pump1_menu.
-void pump1ReturnControl() { pump1_menu.present(); }
+void pump1MenuReturnControl() { pump1_menu.present(); }
 
 // Returns control to the pump2_menu, to be used as the completion for menu items added to the pump2_menu.
-void pump2ReturnControl() { pump2_menu.present(); }
+void pump2MenuReturnControl() { pump2_menu.present(); }
 
 // Returns control to the pump3_menu, to be used as the completion for menu items added to the pump3_menu.
-void pump3ReturnControl() { pump3_menu.present(); }
+void pump3MenuReturnControl() { pump3_menu.present(); }
 
 // Returns control to the settings_menu, to be used as the completion for menu items added to the settings_menu.
 void settingsMenuReturnControl() { settings_menu.present(); }
@@ -78,14 +79,22 @@ void setup() {
   // Let's address this concern later.
   main_menu.configurePresentable(&display, nullptr);
   // TODO: Add items to the main menu
+  main_menu.addMenuItem(&pump1_menu, &mainMenuReturnControl);
+  main_menu.addMenuItem(&pump2_menu, &mainMenuReturnControl);
+  main_menu.addMenuItem(&pump3_menu, &mainMenuReturnControl);
+  main_menu.addMenuItem(&settings_menu, &mainMenuReturnControl);
 
   // TODO: Add items to the pump1_menu
+  pump1_menu.addMenuItem(new ReturnMenuItem(), &pump1MenuReturnControl);
 
   // TODO: Add items to the pump2_menu
+  pump2_menu.addMenuItem(new ReturnMenuItem(), &pump2MenuReturnControl);
 
   // TODO: Add items to the pump3_menu
+  pump3_menu.addMenuItem(new ReturnMenuItem(), &pump3MenuReturnControl);
 
   // TODO: Add items to the settings_menu
+  settings_menu.addMenuItem(new ReturnMenuItem(), &settingsMenuReturnControl);
 
   main_menu.present();
 }
