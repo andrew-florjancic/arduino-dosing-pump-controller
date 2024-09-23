@@ -10,7 +10,7 @@
 // Controls the LCD Display and handles updates to brightness and contrast settings.
 class DisplayController {
     private:
-        const StorageManager storage_manager; // The StorageManager used to update display settings.
+        const StorageManager& storage_manager; // The StorageManager used to update display settings.
         const DoublyLinkedList<uint8_t> brightness_menu; // Brightness percentages to select from.
         const DoublyLinkedList<uint8_t> contrast_menu; // Contrast percentages to select from.
         Display display; // The Display object
