@@ -19,6 +19,12 @@ class DoublyLinkedList {
         // Returns a pointer to the current item.
         DLLNode<T>* getCurrentItem();
 
+        // Returns a pointer to the first item in the list.
+        DLLNode<T>* getHead();
+
+        // Returns a pointer to the last item in the list
+        DLLNode<T>* getTail();
+
         // Sets the current item to the next item if one exists.
         void nextItem();
 
@@ -42,6 +48,16 @@ DoublyLinkedList<T>::DoublyLinkedList() { }
 template <class T> 
 DLLNode<T>* DoublyLinkedList<T>::getCurrentItem() {
     return current_item;
+}
+
+template <class T> 
+DLLNode<T>* DoublyLinkedList<T>::getHead() {
+    return head;
+}
+
+template <class T> 
+DLLNode<T>* DoublyLinkedList<T>::getTail() {
+    return tail;
 }
 
 template <class T> 
