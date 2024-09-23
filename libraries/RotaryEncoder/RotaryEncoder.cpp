@@ -16,6 +16,7 @@ void RotaryEncoder::setup(void (*a_input)(), void (*b_input)(), void (*button_in
     
     // Transform the encoder_state DLL into the Doubly Half-Circular Linked List State Machine abomination. 
     // l3's previous node and r3's next node is the neutral node in the middle of the list.
+    // See RotaryEncoderStateMachineDiagram.svg for more details.
     DLLNode<EncoderState>* current = encoder_state.getCurrentItem();
     encoder_state.getHead()->previous_node = current;
     encoder_state.getTail()->next_node = current;
