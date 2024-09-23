@@ -14,6 +14,7 @@
 #include "BrightnessMenuItem.h"
 #include "ContrastMenuItem.h"
 #include "SetDoseMenuItem.h"
+#include "PrimePumpMenuItem.h"
 #include "ResetPumpSettingsMenuItem.h"
 
 StorageManager storage_manager;
@@ -92,16 +93,19 @@ void setup() {
   // TODO: Add items to the pump1_menu
   pump1_menu.addMenuItem(new ReturnMenuItem(), &pump1MenuReturnControl);
   pump1_menu.addMenuItem(new SetDoseMenuItem(pump1_controller), &pump1MenuReturnControl);
+  pump1_menu.addMenuItem(new PrimePumpMenuItem(pump1_controller), &pump1MenuReturnControl);
   pump1_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump1_controller), &pump1MenuReturnControl);
 
   // TODO: Add items to the pump2_menu
   pump2_menu.addMenuItem(new ReturnMenuItem(), &pump2MenuReturnControl);
   pump2_menu.addMenuItem(new SetDoseMenuItem(pump2_controller), &pump2MenuReturnControl);
+  pump2_menu.addMenuItem(new PrimePumpMenuItem(pump2_controller), &pump2MenuReturnControl);
   pump2_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump2_controller), &pump2MenuReturnControl);
 
   // TODO: Add items to the pump3_menu
   pump3_menu.addMenuItem(new ReturnMenuItem(), &pump3MenuReturnControl);
   pump3_menu.addMenuItem(new SetDoseMenuItem(pump3_controller), &pump3MenuReturnControl);
+  pump3_menu.addMenuItem(new PrimePumpMenuItem(pump3_controller), &pump3MenuReturnControl);
   pump3_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump3_controller), &pump3MenuReturnControl);
 
   // TODO: Add items to the settings_menu
