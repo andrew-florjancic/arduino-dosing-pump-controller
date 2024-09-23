@@ -15,6 +15,7 @@
 #include "ContrastMenuItem.h"
 #include "SetDoseMenuItem.h"
 #include "PrimePumpMenuItem.h"
+#include "CalibratePumpMenuItem.h"
 #include "ResetPumpSettingsMenuItem.h"
 
 StorageManager storage_manager;
@@ -29,7 +30,7 @@ Display display(lcd, lcd_rows, lcd_columns, &lcd_backlight, nullptr);
 DisplayController display_controller(display, storage_manager);
 
 // TODO: Update this with the actual pins connected to the motors
-Motor motor1(nullptr, nullptr);
+Motor motor1(9, 10);
 Motor motor2(nullptr, nullptr);
 Motor motor3(nullptr, nullptr);
 
@@ -43,6 +44,12 @@ Menu pump1_menu("Pump 1");
 Menu pump2_menu("Pump 2");
 Menu pump3_menu("Pump 3");
 Menu settings_menu("Settings");
+
+// Create calibrate pump menu items
+// These need to be created now so they can be called by return control functions.
+CalibratePumpMenuItem calibrate_pump1(pump1_controller);
+CalibratePumpMenuItem calibrate_pump2(pump2_controller);
+CalibratePumpMenuItem calibrate_pump3(pump3_controller);
 
 // Returns control to the main_menu, to be used as the completion for menu items added to the main_menu.
 void mainMenuReturnControl() { main_menu.present(); }
@@ -58,6 +65,15 @@ void pump3MenuReturnControl() { pump3_menu.present(); }
 
 // Returns control to the settings_menu, to be used as the completion for menu items added to the settings_menu.
 void settingsMenuReturnControl() { settings_menu.present(); }
+
+// Returns control the the CalibratePumpMenuItem for pump 1 after calibration has ended.
+void pump1CalibrationCompletion() { calibrate_pump1.calibrationComplete(); }
+
+// Returns control the the CalibratePumpMenuItem for pump 2 after calibration has ended.
+void pump2CalibrationCompletion() { calibrate_pump2.calibrationComplete(); }
+
+// Returns control the the CalibratePumpMenuItem for pump 3 after calibration has ended.
+void pump3CalibrationCompletion() { calibrate_pump3.calibrationComplete(); }
 
 RotaryEncoder rotary_encoder(19, 20, 21, 150); // TODO add actual pin values. Also 150 milliseconds sounds high for the debounce duration.
 
@@ -78,6 +94,9 @@ void setup() {
   display.setup();
   display_controller.setup();
   rotary_encoder.setup(&encoderAInput, &encoderBInput, &buttonInput, &actionDetected);
+  pump1_controller.setup(&pump1CalibrationCompletion);
+  pump2_controller.setup(&pump2CalibrationCompletion);
+  pump3_controller.setup(&pump3CalibrationCompletion);
 
   // Configure the main_menu then add items.
   // I don't think I'll ever dismiss the main_menu so this completion can probably be a nullptr.
@@ -94,18 +113,21 @@ void setup() {
   pump1_menu.addMenuItem(new ReturnMenuItem(), &pump1MenuReturnControl);
   pump1_menu.addMenuItem(new SetDoseMenuItem(pump1_controller), &pump1MenuReturnControl);
   pump1_menu.addMenuItem(new PrimePumpMenuItem(pump1_controller), &pump1MenuReturnControl);
+  pump1_menu.addMenuItem(&calibrate_pump1, &pump1MenuReturnControl);
   pump1_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump1_controller), &pump1MenuReturnControl);
 
   // TODO: Add items to the pump2_menu
   pump2_menu.addMenuItem(new ReturnMenuItem(), &pump2MenuReturnControl);
   pump2_menu.addMenuItem(new SetDoseMenuItem(pump2_controller), &pump2MenuReturnControl);
   pump2_menu.addMenuItem(new PrimePumpMenuItem(pump2_controller), &pump2MenuReturnControl);
+  pump2_menu.addMenuItem(&calibrate_pump2, &pump2MenuReturnControl);
   pump2_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump2_controller), &pump2MenuReturnControl);
 
   // TODO: Add items to the pump3_menu
   pump3_menu.addMenuItem(new ReturnMenuItem(), &pump3MenuReturnControl);
   pump3_menu.addMenuItem(new SetDoseMenuItem(pump3_controller), &pump3MenuReturnControl);
   pump3_menu.addMenuItem(new PrimePumpMenuItem(pump3_controller), &pump3MenuReturnControl);
+  pump3_menu.addMenuItem(&calibrate_pump3, &pump3MenuReturnControl);
   pump3_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump3_controller), &pump3MenuReturnControl);
 
   // TODO: Add items to the settings_menu
