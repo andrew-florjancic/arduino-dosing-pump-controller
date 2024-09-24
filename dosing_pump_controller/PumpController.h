@@ -37,10 +37,10 @@ class PumpController {
         // Stops the dosing schedule and turns the pump off.
         void stopDosing();
 
-        // Turns the pump on. For manual operation only
+        // Turns the pump on.
         void activate();
 
-        // Turns the pump off
+        // Turns the pump off.
         void deactivate();
 
         // Turns the pump on until the calibration period is over.
@@ -88,6 +88,7 @@ class PumpController {
         uint8_t duty_cycle; // The current duty_cycle pump setting value, the PWM duty cycle the pump will operate at.
         uint8_t dose_frequency; // The current dose_frequency pump setting value, number of times per day the dose should be delivered.
         unsigned long dose_duration; // The current dose_duration pump setting value, how long each dose will last in milliseconds.
+        unsigned long interval_duration; // The length of time in seconds between each scheduled dose.
         unsigned long previous_dose_start_time; // The time, in milliseconds, when the previous dose started.
         const unsigned long calibration_duration = 100000; // The length of time, in milliseconds, pump calibration will last. 100 seconds at 1 mL/s.
         unsigned long calibration_start_time = 0; // The time when calibration started.
