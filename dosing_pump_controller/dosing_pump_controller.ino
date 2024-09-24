@@ -139,6 +139,7 @@ void setup() {
   settings_menu.addMenuItem(new ContrastMenuItem(display_controller), &settingsMenuReturnControl);
 
   main_menu.present();
+  main_menu.sendAction(RotaryEncoder::Actions::select);
 }
 
 void loop() {
