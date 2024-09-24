@@ -60,6 +60,9 @@ class Presentable : public Feature {
         // @param guest: A pointer to the guest Presentable.
         void host(Presentable* guest);
 
+        // This method is called after the Presentable is presented but before the first performance which provides an opportunity to start any background tasks.
+        virtual void presentableWillPerform() {}
+
         // This method is called just before the Presentable is dismissed which provides an opportunity to perform any cleanup tasks to prepare for the next presentation. 
         virtual void presentableWillDismiss() = 0;
 
