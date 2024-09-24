@@ -8,6 +8,7 @@ PumpController::PumpController(StorageManager::PumpID pump_id, StorageManager& s
     dose_duration = storage_manager.getDoseDuration(pump_id);
     dose_frequency = storage_manager.getDoseFrequency(pump_id);
     dosing_enabled = storage_manager.getDosingEnabled(pump_id);
+    interval_duration = dose_frequency / day_length;
 }
 
 void PumpController::setup(void (*calibration_completion)()) {
@@ -26,7 +27,16 @@ void PumpController::pollPumpStatus(unsigned long current_time) {
             }
             break;
         case dosing:
-        // TODO add dosing
+            // Deactivate the pump after the dose duration is over.
+            if((previous_dose_start_time + dose_duration) <= current_time) {
+                deactivate();
+            }
+            
+            // Activate the pump and reset the previous dose time if the interval duration is over.
+            if((previous_dose_start_time + interval_duration) <= current_time) {
+                previous_dose_start_time = current_time;
+                activate();
+            }
         break;
     }
 }
@@ -48,7 +58,6 @@ void PumpController::stopDosing() {
 }
 
 void PumpController::activate() {
-    pump_state = manual;
     motor.forward(duty_cycle);
 }
 
@@ -60,7 +69,7 @@ void PumpController::deactivate() {
 void PumpController::calibrate(unsigned long current_time) {
     calibration_start_time = current_time;
     pump_state = calibrating;
-    motor.forward(duty_cycle);
+    activate();
 }
 
 void PumpController::resetPumpSettings() {
@@ -69,10 +78,11 @@ void PumpController::resetPumpSettings() {
     dose_duration = storage_manager.getDoseDuration(pump_id);
     dose_frequency = storage_manager.getDoseFrequency(pump_id);
     dosing_enabled = storage_manager.getDosingEnabled(pump_id);
+    interval_duration = dose_frequency / day_length;
 }
 
 unsigned long PumpController::getIntervalDuration() {
-    return dose_frequency / day_length;
+    return interval_duration;
 }
 
 uint8_t PumpController::getDutyCycle() {
@@ -103,6 +113,7 @@ void PumpController::updateDoseDuration(unsigned long new_value) {
 
 void PumpController::updateDoseFrequency(uint8_t new_value) {
     dose_frequency = new_value;
+    interval_duration = dose_frequency / day_length;
     storage_manager.updateDoseFrequency(pump_id, new_value);
 }
 
