@@ -81,7 +81,7 @@ class PumpController {
         // @param  new_value: The new value of the dosing_enabled pump setting.
         void updateDosingEnabled(bool new_value);
     private:
-        enum PumpState { off, manual, calibrating, dosing }; // Possible states the pump can be in.
+        enum PumpState { off, calibrating, dosing }; // Possible states the pump can be in.
         PumpState pump_state = off; // The current state of the pump.
         const StorageManager& storage_manager; // The StorageManager used to update settings.
         const Motor& motor; // The Motor being controlled.
