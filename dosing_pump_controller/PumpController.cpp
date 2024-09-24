@@ -27,6 +27,7 @@ void PumpController::pollPumpStatus(unsigned long current_time) {
             }
             break;
         case dosing:
+            if(!dosing_enabled) { break; }
             // Deactivate the pump after the dose duration is over.
             if((previous_dose_start_time + dose_duration) <= current_time) {
                 deactivate();
