@@ -10,6 +10,7 @@
 #include "StorageManager.h"
 #include "PumpController.h"
 #include "DisplayController.h"
+#include "StartDosingMenuItem.h"
 #include "ReturnMenuItem.h"
 #include "BrightnessMenuItem.h"
 #include "ContrastMenuItem.h"
@@ -105,6 +106,7 @@ void setup() {
   // Let's address this concern later.
   main_menu.configurePresentable(&display, nullptr);
   // TODO: Add items to the main menu
+  main_menu.addMenuItem(new StartDosingMenuItem(pump1_controller, pump2_controller, pump3_controller), &mainMenuReturnControl);
   main_menu.addMenuItem(&pump1_menu, &mainMenuReturnControl);
   main_menu.addMenuItem(&pump2_menu, &mainMenuReturnControl);
   main_menu.addMenuItem(&pump3_menu, &mainMenuReturnControl);
