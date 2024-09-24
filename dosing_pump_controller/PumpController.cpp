@@ -31,6 +31,22 @@ void PumpController::pollPumpStatus(unsigned long current_time) {
     }
 }
 
+void PumpController::startDosing(unsigned long current_time) {
+    /* Important!
+    * An assumption is being made here that once the device is powered on this method will be automatically called to start the dosing schedule so
+    * that in the case of a power failure the dosing schedule can resume once power is returned. Because of this assumption, it is an intentional
+    * design decision that the pumps must not immediately administer their first dose when this method is called. If we did not delay the dosing
+    * schedule, then in the event where multiple power outages occur frequently there would be the potential to overdose which could be disastrous.
+    * We are going to err on the side of caution and avoid overdosing in favor of delaying doses or potentially missing doses due to the lower risk.*/
+    previous_dose_start_time = current_time;
+    pump_state = dosing;
+}
+
+void PumpController::stopDosing() {
+    pump_state = off;
+    motor.off(); 
+}
+
 void PumpController::activate() {
     pump_state = manual;
     motor.forward(duty_cycle);

@@ -31,6 +31,12 @@ class PumpController {
         // @param current_time: The current time in milliseconds.
         void pollPumpStatus(unsigned long current_time);
 
+        // Starts the dosing schedule. Note: First dose will be skipped.
+        void startDosing(unsigned long current_time);
+
+        // Stops the dosing schedule and turns the pump off.
+        void stopDosing();
+
         // Turns the pump on. For manual operation only
         void activate();
 
