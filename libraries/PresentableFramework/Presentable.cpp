@@ -35,6 +35,7 @@ void Presentable::present() {
     // handling - do nothing or show an error code. Let's revisit this later.
     guest = nullptr;
     presentable_state = presenting;
+    presentableWillPerform();
     perform();
 }
 
