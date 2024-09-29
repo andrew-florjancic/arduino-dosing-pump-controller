@@ -15,6 +15,7 @@
 #include "BrightnessMenuItem.h"
 #include "ContrastMenuItem.h"
 #include "SetDoseMenuItem.h"
+#include "EnablePumpMenuItem.h"
 #include "PrimePumpMenuItem.h"
 #include "CalibratePumpMenuItem.h"
 #include "ResetPumpSettingsMenuItem.h"
@@ -115,6 +116,7 @@ void setup() {
   // TODO: Add items to the pump1_menu
   pump1_menu.addMenuItem(new ReturnMenuItem(), &pump1MenuReturnControl);
   pump1_menu.addMenuItem(new SetDoseMenuItem(pump1_controller), &pump1MenuReturnControl);
+  pump1_menu.addMenuItem(new EnablePumpMenuItem(pump1_controller), &pump1MenuReturnControl);
   pump1_menu.addMenuItem(new PrimePumpMenuItem(pump1_controller), &pump1MenuReturnControl);
   pump1_menu.addMenuItem(&calibrate_pump1, &pump1MenuReturnControl);
   pump1_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump1_controller), &pump1MenuReturnControl);
@@ -122,6 +124,7 @@ void setup() {
   // TODO: Add items to the pump2_menu
   pump2_menu.addMenuItem(new ReturnMenuItem(), &pump2MenuReturnControl);
   pump2_menu.addMenuItem(new SetDoseMenuItem(pump2_controller), &pump2MenuReturnControl);
+  pump2_menu.addMenuItem(new EnablePumpMenuItem(pump2_controller), &pump2MenuReturnControl);
   pump2_menu.addMenuItem(new PrimePumpMenuItem(pump2_controller), &pump2MenuReturnControl);
   pump2_menu.addMenuItem(&calibrate_pump2, &pump2MenuReturnControl);
   pump2_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump2_controller), &pump2MenuReturnControl);
@@ -129,6 +132,7 @@ void setup() {
   // TODO: Add items to the pump3_menu
   pump3_menu.addMenuItem(new ReturnMenuItem(), &pump3MenuReturnControl);
   pump3_menu.addMenuItem(new SetDoseMenuItem(pump3_controller), &pump3MenuReturnControl);
+  pump3_menu.addMenuItem(new EnablePumpMenuItem(pump3_controller), &pump3MenuReturnControl);
   pump3_menu.addMenuItem(new PrimePumpMenuItem(pump3_controller), &pump3MenuReturnControl);
   pump3_menu.addMenuItem(&calibrate_pump3, &pump3MenuReturnControl);
   pump3_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump3_controller), &pump3MenuReturnControl);
