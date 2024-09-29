@@ -23,7 +23,7 @@ void SetDoseMenuItem::showFeature() {
         case frequency: display->lcd.print(frequency_message + String(frequency_menu.getCurrentItem()->data)); break;
         case dose_hundreds:
         case dose_tens:
-        case dose_ones: display->lcd.print(dose_message + String(dose_duration)); break; 
+        case dose_ones: display->lcd.print(dose_message + String(dose_quantity)); break; 
         case complete: display->lcd.print(complete_message); break;
     }
 }
@@ -31,7 +31,7 @@ void SetDoseMenuItem::showFeature() {
 void SetDoseMenuItem::presentableWillDismiss() {
      // Reset feature state and dose duration for the next presentation.
     feature_state = frequency;
-    dose_duration = 0;
+    dose_quantity = 0;
 }
 
 void SetDoseMenuItem::leftAction() {
@@ -55,7 +55,7 @@ void SetDoseMenuItem::rightAction() {
 void SetDoseMenuItem::selectAction() {
     if(feature_state == complete) {
         pump_controller.updateDoseFrequency(frequency_menu.getCurrentItem()->data);
-        pump_controller.updateDoseDuration(dose_duration);
+        pump_controller.updateDoseDuration(getDoseDuration());
         completePresentation();
         return; 
     }
@@ -73,11 +73,15 @@ SetDoseMenuItem::nextState() {
 }
 
 void SetDoseMenuItem::decrementDoseBy(uint8_t value) {
-    if(dose_duration < value) { return; }
-    dose_duration -= value;
+    if(dose_quantity < value) { return; }
+    dose_quantity -= value;
 }
 
 void SetDoseMenuItem::incrementDoseBy(uint8_t value) {
-    if((dose_duration + value) >= (pump_controller.day_length / frequency_menu.getCurrentItem()->data)) { return; }
-    dose_duration += value;
+    if((getDoseDuration() + value) >= (pump_controller.day_length / frequency_menu.getCurrentItem()->data)) { return; }
+    dose_quantity += value;
+}
+
+unsigned long SetDoseMenuItem::getDoseDuration() {
+    return dose_quantity * 1000;
 }
