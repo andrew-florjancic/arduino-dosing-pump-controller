@@ -8,7 +8,7 @@ PumpController::PumpController(StorageManager::PumpID pump_id, StorageManager& s
     dose_duration = storage_manager.getDoseDuration(pump_id);
     dose_frequency = storage_manager.getDoseFrequency(pump_id);
     dosing_enabled = storage_manager.getDosingEnabled(pump_id);
-    interval_duration = dose_frequency / day_length;
+    interval_duration = day_length / dose_frequency;
 }
 
 void PumpController::setup(void (*calibration_completion)()) {
@@ -17,8 +17,13 @@ void PumpController::setup(void (*calibration_completion)()) {
 }
 
 void PumpController::pollPumpStatus(unsigned long current_time) {
-    switch(pump_state) {
-        case off: break;
+    if(needs_deactivation) {
+        motor.off();
+        pump_mode = manual;
+        needs_deactivation = false;
+    }
+    switch(pump_mode) {
+        case manual: break;
         case calibrating:
             // Deactivate the pump if the calibration period has ended.
             if((calibration_start_time + calibration_duration) <= current_time) {
@@ -28,17 +33,17 @@ void PumpController::pollPumpStatus(unsigned long current_time) {
             break;
         case dosing:
             if(!dosing_enabled) { break; }
-            // Deactivate the pump after the dose duration is over.
-            if((previous_dose_start_time + dose_duration) <= current_time) {
-                deactivate();
+            if(!needs_dose && ((previous_dose_start_time + dose_duration) <= current_time)) {
+                motor.off();
+                needs_dose = true;
             }
-            
             // Activate the pump and reset the previous dose time if the interval duration is over.
-            if((previous_dose_start_time + interval_duration) <= current_time) {
+            if(needs_dose && ((previous_dose_start_time + interval_duration) <= current_time)) {
                 previous_dose_start_time = current_time;
+                needs_dose = false;
                 activate();
             }
-        break;
+            break;
     }
 }
 
@@ -50,12 +55,12 @@ void PumpController::startDosing(unsigned long current_time) {
     * schedule, then in the event where multiple power outages occur frequently there would be the potential to overdose which could be disastrous.
     * We are going to err on the side of caution and avoid overdosing in favor of delaying doses or potentially missing doses due to the lower risk.*/
     previous_dose_start_time = current_time;
-    pump_state = dosing;
+    needs_dose = false;
+    pump_mode = dosing;
 }
 
 void PumpController::stopDosing() {
-    pump_state = off;
-    motor.off(); 
+    needs_deactivation = true;
 }
 
 void PumpController::activate() {
@@ -64,13 +69,14 @@ void PumpController::activate() {
 
 void PumpController::deactivate() {
     motor.off();
-    pump_state = off;
+    needs_deactivation = false;
+    pump_mode = manual;
 }
 
 void PumpController::calibrate(unsigned long current_time) {
     calibration_start_time = current_time;
-    pump_state = calibrating;
     activate();
+    pump_mode = calibrating;
 }
 
 void PumpController::resetPumpSettings() {
@@ -79,7 +85,7 @@ void PumpController::resetPumpSettings() {
     dose_duration = storage_manager.getDoseDuration(pump_id);
     dose_frequency = storage_manager.getDoseFrequency(pump_id);
     dosing_enabled = storage_manager.getDosingEnabled(pump_id);
-    interval_duration = dose_frequency / day_length;
+    interval_duration = day_length / dose_frequency;
 }
 
 unsigned long PumpController::getIntervalDuration() {
@@ -114,7 +120,7 @@ void PumpController::updateDoseDuration(unsigned long new_value) {
 
 void PumpController::updateDoseFrequency(uint8_t new_value) {
     dose_frequency = new_value;
-    interval_duration = dose_frequency / day_length;
+    interval_duration = day_length / dose_frequency;
     storage_manager.updateDoseFrequency(pump_id, new_value);
 }
 

@@ -25,7 +25,7 @@ class SetDoseMenuItem : public MenuItem {
         // Possible states the Feature can be in while presenting.
         enum FeatureState { frequency, dose_hundreds, dose_tens, dose_ones, complete };
         FeatureState feature_state = frequency;  // The current state of the Feature presentation.
-        unsigned long dose_duration = 0; // The current duration of each dose which will be set by the user.
+        unsigned long dose_quantity = 0; // The current dose quantity, in milliliters, which will be set by the user.
 
         // Shows the current state of the set dose Feature.
         void showFeature();
@@ -45,10 +45,12 @@ class SetDoseMenuItem : public MenuItem {
         // Advances the Feature state to the next state.
         nextState();
         
-        // Decrements the dose duration by the provided value. If the new dose_duration would be below 0, then no change occurs.
+        // Decrements the dose quantity by the provided value. If the new dose_duration would be below 0, then no change occurs.
         void decrementDoseBy(uint8_t value);
 
-        // Increments the dose duration by the provided value. If the new dose_duration would exceed the time between doses, then no change occurs.
+        // Increments the dose quantity by the provided value. If the new dose quantity would exceed the time between doses, then no change occurs.
         void incrementDoseBy(uint8_t value);
+
+        unsigned long getDoseDuration();
 };
 #endif

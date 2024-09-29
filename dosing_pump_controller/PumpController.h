@@ -13,8 +13,8 @@ class PumpController {
         // Identification value of the pump being controller.
         const StorageManager::PumpID pump_id;
 
-        // Number of seconds in 24 hours.
-        const unsigned long day_length = 86400;
+        // Number of milliseconds in 24 hours.
+        const unsigned long day_length = 86400000;
 
         /* Constructor creates a PumpController.
         * @param pump_id: The identifier of the pump that will be controlled.
@@ -50,9 +50,6 @@ class PumpController {
         // Resets the pump settings to factory default values.
         void resetPumpSettings();
 
-        // @return The length of time in seconds between each scheduled dose.
-        unsigned long getIntervalDuration();
-
         // @return The current duty cycle setting for the pump.
         uint8_t getDutyCycle();
 
@@ -81,8 +78,17 @@ class PumpController {
         // @param  new_value: The new value of the dosing_enabled pump setting.
         void updateDosingEnabled(bool new_value);
     private:
-        enum PumpState { off, calibrating, dosing }; // Possible states the pump can be in.
-        PumpState pump_state = off; // The current state of the pump.
+        // @return The length of time in seconds between each scheduled dose.
+        unsigned long getIntervalDuration();
+
+        // True, if the pump should be turned off and returnedd to manual mode. Only an ISR should modify this boolean to avoid race conditions.
+        // `pollPumpStatus()` will check this boolean and reset.
+        bool needs_deactivation = false;
+
+        // True if the pump is waiting for the correct time to turn the pump on for a dose. False if the pump is waiting to turn off after the dose has completed.
+        bool needs_dose = false;
+        enum PumpMode { manual, calibrating, dosing }; // Possible states the pump can be in.
+        PumpMode pump_mode = manual; // The current state of the pump.
         const StorageManager& storage_manager; // The StorageManager used to update settings.
         const Motor& motor; // The Motor being controlled.
         uint8_t duty_cycle; // The current duty_cycle pump setting value, the PWM duty cycle the pump will operate at.

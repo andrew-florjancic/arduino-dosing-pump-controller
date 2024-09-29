@@ -94,7 +94,7 @@ class StorageManager {
         struct AppSettings {
             // Settings used for pump operation.
             struct PumpSettings {
-                unsigned long dose_duration; // The number of seconds the pump will stay on for each dose.
+                unsigned long dose_duration; // The number of milliseconds the pump will stay on for each dose.
                 bool dosing_enabled; // True, if the pump should execute its dosing schedule.
                 uint8_t dose_frequency; // The number of times the pump will dose in a 24 hour period.
                 uint8_t duty_cycle; // The duty cycle the pump should operate at.
