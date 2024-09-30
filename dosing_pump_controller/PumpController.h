@@ -20,7 +20,7 @@ class PumpController {
         * @param pump_id: The identifier of the pump that will be controlled.
         * @param storage_manager: The StorageManager used to update pump settings.
         * @param motor: The motor connected to the pump head that will be controlled.*/
-        PumpController(StorageManager::PumpID pump_id, StorageManager& storage_manager, Motor& motor);
+        PumpController(StorageManager::PumpID pump_id, const StorageManager& storage_manager, const Motor& motor);
 
         // Sets the controller's calibration completion function.
         // @param calibration_completion: A callback function to be executed when calibration has finished.

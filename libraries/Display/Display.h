@@ -24,7 +24,7 @@ class Display {
         * @param contrast_pin: A pointer to the Arduino PWM pin# that is connected to the LCD contrast pin.
         * If the Arduino is not going to control the LCD contrast, then pass in `nullptr` for this parameter.
         */ 
-        Display(LiquidCrystal lcd, uint8_t rows, uint8_t columns, uint8_t* backlight_pin, uint8_t* contrast_pin);
+        Display(const LiquidCrystal lcd, uint8_t rows, uint8_t columns, uint8_t* backlight_pin, uint8_t* contrast_pin);
 
         // Sets the pinmodes for the backlight and contrast pins then initializes the LCD screen.
         void setup();

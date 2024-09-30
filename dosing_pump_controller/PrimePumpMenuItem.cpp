@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "PrimePumpMenuItem.h"
 
-PrimePumpMenuItem::PrimePumpMenuItem(PumpController& pump_controller) : MenuItem("Prime", false), pump_controller(pump_controller) {}
+PrimePumpMenuItem::PrimePumpMenuItem(const PumpController& pump_controller) : MenuItem("Prime", false), pump_controller(pump_controller) {}
 
 void PrimePumpMenuItem::showFeature() {
     display->lcd.clear();

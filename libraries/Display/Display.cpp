@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved
 #include "Display.h"
 
-Display::Display(LiquidCrystal lcd, uint8_t rows, uint8_t columns, uint8_t* backlight_pin, uint8_t* contrast_pin) 
+Display::Display(const LiquidCrystal lcd, uint8_t rows, uint8_t columns, uint8_t* backlight_pin, uint8_t* contrast_pin) 
 : lcd(lcd), rows(rows), columns(columns), backlight_pin(backlight_pin), contrast_pin(contrast_pin) { }
 
 void Display::setup() {

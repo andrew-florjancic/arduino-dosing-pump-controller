@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved
 #include "DisplayController.h"
 
-DisplayController::DisplayController(Display& display, StorageManager& storage_manager)
+DisplayController::DisplayController(const Display& display, const StorageManager& storage_manager)
 : display(display), storage_manager(storage_manager) { 
     brightness_menu = DoublyLinkedList<uint8_t>();
     contrast_menu = DoublyLinkedList<uint8_t>();

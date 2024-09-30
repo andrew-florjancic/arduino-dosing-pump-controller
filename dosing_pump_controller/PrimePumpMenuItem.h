@@ -12,7 +12,7 @@ class PrimePumpMenuItem : public MenuItem {
     public:
         // Constructor creates a PrimePumpMenuItem.
         // @param pump_controller: The PumpController used to turn the pump on and off.
-        PrimePumpMenuItem(PumpController& pump_controller);
+        PrimePumpMenuItem(const PumpController& pump_controller);
     private:
         const String start_message = "-> Start"; // A Feature message to be displayed to the user during the start Feature state.
         const String stop_message = "-> Stop"; // A Feature message to be displayed to the user during the stop Feature state.

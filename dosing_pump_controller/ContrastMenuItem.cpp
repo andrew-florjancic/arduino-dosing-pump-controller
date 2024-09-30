@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "ContrastMenuItem.h"
 
-ContrastMenuItem::ContrastMenuItem(DisplayController& display_controller)
+ContrastMenuItem::ContrastMenuItem(const DisplayController& display_controller)
 : MenuItem("Contrast", false), display_controller(display_controller) {}
 
 void ContrastMenuItem::showFeature() {

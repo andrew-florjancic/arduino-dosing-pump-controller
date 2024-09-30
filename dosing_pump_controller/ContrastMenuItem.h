@@ -12,7 +12,7 @@ class ContrastMenuItem : public MenuItem {
     public:
         // Constructor creates a ContrastMenuItem.
         // @param display_controller: The DisplayController that will be used to update and save contrast settings.
-        ContrastMenuItem(DisplayController& display_controller);
+        ContrastMenuItem(const DisplayController& display_controller);
     private:
         // The DisplayController used to update and save contrast settings.
         const DisplayController display_controller;

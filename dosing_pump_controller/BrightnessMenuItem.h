@@ -34,6 +34,6 @@ class BrightnessMenuItem : public MenuItem {
 
         // Constructor creates a BrightnessMenuItem.
         // @param display_controller: The DisplayController that will be used to update and save brightness settings.
-        BrightnessMenuItem(DisplayController& display_controller);
+        BrightnessMenuItem(const DisplayController& display_controller);
 };
 #endif

@@ -13,7 +13,7 @@ class SetDoseMenuItem : public MenuItem {
     public:
         // Constructor creates a SetDoseMenuItem.
         // @param pump_controller: The PumpController that will be used to update and save pump settings.
-        SetDoseMenuItem(PumpController& pump_controller);
+        SetDoseMenuItem(const PumpController& pump_controller);
     private:
         // A menu of frequency options the user can choose.
         DoublyLinkedList<uint8_t> frequency_menu = DoublyLinkedList<uint8_t>();
