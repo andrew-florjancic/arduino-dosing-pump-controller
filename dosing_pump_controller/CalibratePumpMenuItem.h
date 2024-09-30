@@ -12,7 +12,7 @@ class CalibratePumpMenuItem : public MenuItem {
     public:
         // Constructor creates a CalibratePumpMenuItem.
         // @param: pump_controller: The PumpController that will be used to update pump settings and turn the pump on and off.
-        CalibratePumpMenuItem(PumpController& pump_controller);
+        CalibratePumpMenuItem(const PumpController& pump_controller);
 
         // To be called by the pump controller when the calibration period has ended to return control to the menu item. 
         void calibrationComplete();

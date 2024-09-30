@@ -10,7 +10,7 @@
 class EnablePumpMenuItem : public MenuItem {
     private:
         // The PumpController used to update the enable pump setting.
-        PumpController& pump_controller;
+        const PumpController& pump_controller;
 
         // True if the pump should be enabled while dosing.
         bool is_enabled;
@@ -40,6 +40,6 @@ class EnablePumpMenuItem : public MenuItem {
 
         // Constructor creates a EnablePumpMenuItem.
         // @param pump_controller: The PumpController used to update the dosing_enabled pump setting.
-        EnablePumpMenuItem(PumpController& pump_controller);
+        EnablePumpMenuItem(const PumpController& pump_controller);
 };
 #endif

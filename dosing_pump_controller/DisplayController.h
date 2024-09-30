@@ -13,7 +13,7 @@ class DisplayController {
         const StorageManager& storage_manager; // The StorageManager used to update display settings.
         const DoublyLinkedList<uint8_t> brightness_menu; // Brightness percentages to select from.
         const DoublyLinkedList<uint8_t> contrast_menu; // Contrast percentages to select from.
-        Display display; // The Display object
+        const Display& display; // The Display object
 
         // Sets the LCD brightness to the current brightness percentage.
         void setLCDBrightness();
@@ -24,7 +24,7 @@ class DisplayController {
         // Constructor created a DisplayController.
         // @param display: The Display that will be controlled.
         // @param storage_manager: The StorageManager used to update display settings.
-        DisplayController(Display& display, StorageManager& storage_manager);
+        DisplayController(const Display& display, const StorageManager& storage_manager);
         
         // Sets up the LCD and sets the brightness and contrast percentages.
         void setup();

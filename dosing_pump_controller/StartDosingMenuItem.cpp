@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "StartDosingMenuItem.h"
 
-StartDosingMenuItem::StartDosingMenuItem(PumpController& pump1_controller, PumpController& pump2_controller, PumpController& pump3_controller)
+StartDosingMenuItem::StartDosingMenuItem(const PumpController& pump1_controller, const PumpController& pump2_controller, const PumpController& pump3_controller)
 : MenuItem("Start Dosing", false), pump1_controller(pump1_controller), pump2_controller(pump2_controller), pump3_controller(pump3_controller) {}
 
 void StartDosingMenuItem::showFeature() {
