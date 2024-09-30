@@ -6,9 +6,11 @@ DisplayController::DisplayController(const Display& display, const StorageManage
 : display(display), storage_manager(storage_manager) { 
     brightness_menu = DoublyLinkedList<uint8_t>();
     contrast_menu = DoublyLinkedList<uint8_t>();
-    // Append percentages 0-100 in increments of 5
+    // Brightness 0-100 in increments of 5.
+    // Contrast 0-50 in increments of 5.
     for(uint8_t i = 0; i <= 20; i++) {
         brightness_menu.append(i*5);
+        if(i > 10) { continue; }
         contrast_menu.append(i*5);
     }
     // Set the current brightness and contrast menu items to the values from device storage
