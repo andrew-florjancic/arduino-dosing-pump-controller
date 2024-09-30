@@ -20,54 +20,75 @@
 #include "CalibratePumpMenuItem.h"
 #include "ResetPumpSettingsMenuItem.h"
 
-StorageManager storage_manager;
+// A model of the Arduino Nano Every board being used for the dosing pump controller.
+const struct Board {
+  // Pin numbers with a description of their useage.
+  const struct Pins {
+    const uint8_t d13 = 13;  // Pin #1: D13 - unused 
+                             // Pin #2: +3V - unused
+                             // Pin #3: AREF - unused
+    const uint8_t d14 = 14;  // Pin #4: D14 - Connected to LCD pin#6 EN
+    const uint8_t d15 = 15;  // Pin #5: D15 - Connected to LCD pin#11 D4
+    const uint8_t d16 = 16;  // Pin #6: D16 - Connected to LCD pin#12 D5
+    const uint8_t d17 = 17;  // Pin #7: D17 - Connected to LCD pin#13 D6
+    const uint8_t d18 = 18;  // Pin #8: D18 - Connected to LCD pin#14 D7
+    const uint8_t d19 = 19;  // Pin #9: D19 - Connected to Rotary Encoder ENC_B
+    const uint8_t d20 = 20;  // Pin #10: D20 - Connected to Rotary Encoder ENC_A
+    const uint8_t d21 = 21;  // Pin #11: D21 - Connected to Rotary Encoder switch
+                             // Pin #12: +5V - Connected to positive rail
+                             // Pin #13: Reset - unused
+                             // Pin #14: GND - Connected to negative rail
+                             // Pin #15: VIN - Connected to power supply positive wire
+                             // Pin #16: TX - unused
+                             // Pin #17: RX - unused
+                             // Pin #18: Reset - unused
+                             // Pin #19: GND - unused
+    const uint8_t d2 = 2;    // Pin #20: D2 - unused
+    const uint8_t d3 = 3;    // Pin #21: D3 PWM  - Connected to LCD pin#15 to control brightness
+    const uint8_t d4 = 4;    // Pin #22: D4 - unused
+    const uint8_t d5 = 5;    // Pin #23: D5 PWM - Connected to LCD pin#3 to control contrast
+    const uint8_t d6 = 6;    // Pin #24: D6 PWM - unused
+    const uint8_t d7 = 7;    // Pin #25: D7 - unused
+    const uint8_t d8 = 8;    // Pin #26: D8 - unused
+    const uint8_t d9 = 9;    // Pin #27: D9 PWM - Connected to Motor1 IN1
+    const uint8_t d10 = 10;  // Pin #28: D10 PWM - Connected to Motor2 IN1
+    const uint8_t d11 = 11;  // Pin #29: D11 - unused
+    const uint8_t d12 = 12;  // Pin #30: D12 - Connected to LCD pin#4
+  } pins;
 
-// TODO: Throw all these pins in a struct or something that can represent the Nano Every board that is being used.
-const uint8_t rs = 12, en = 14, d4 = 15, d5 = 16, d6 = 17, d7 = 18;
-const uint8_t lcd_rows = 2, lcd_columns = 16, lcd_backlight = 3; 
+  const StorageManager storage_manager;
+  const RotaryEncoder rotary_encoder = RotaryEncoder(pins.d19, pins.d20, pins.d21, 150);
+  const Display display = Display(LiquidCrystal(pins.d12, pins.d14, pins.d15, pins.d16, pins.d17, pins.d18), 2, 16, &pins.d3, &pins.d5);
+  const DisplayController display_controller = DisplayController(display, storage_manager);
+  Menu main_menu = Menu("Main Menu");
+  Menu settings_menu = Menu("Settings");
 
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
-// TODO: Connect contrast pin to one of the Arduino PWM pins - currently controlling LCD contrast with a potentiometer.
-Display display(lcd, lcd_rows, lcd_columns, &lcd_backlight, nullptr);
-DisplayController display_controller(display, storage_manager);
+  // A PumpController and a Menu.
+  const struct DosingPump {
+    const PumpController controller;
+    const Menu menu;
+  } pump1 = {PumpController(StorageManager::PumpID::pump_1, storage_manager, Motor(&pins.d9, nullptr)), Menu("Pump 1")},
+    pump2 = {PumpController(StorageManager::PumpID::pump_2, storage_manager, Motor(&pins.d10, nullptr)), Menu("Pump 2")},
+    pump3 = {PumpController(StorageManager::PumpID::pump_3, storage_manager, Motor(nullptr, nullptr)), Menu("Pump 3")};
+} board;
 
-// TODO: Update this with the actual pins connected to the motors
-const uint8_t motor1_in1 = 9, motor1_in2 = 10;
-Motor motor1(&motor1_in1, &motor1_in2);
-Motor motor2(nullptr, nullptr);
-Motor motor3(nullptr, nullptr);
-
-PumpController pump1_controller(StorageManager::PumpID::pump_1, storage_manager, motor1);
-PumpController pump2_controller(StorageManager::PumpID::pump_2, storage_manager, motor2);
-PumpController pump3_controller(StorageManager::PumpID::pump_3, storage_manager, motor3);
-
-// Create menus now so that the completion methods can call the menu's present() method
-Menu main_menu("Main Menu");
-Menu pump1_menu("Pump 1");
-Menu pump2_menu("Pump 2");
-Menu pump3_menu("Pump 3");
-Menu settings_menu("Settings");
-
-// Create calibrate pump menu items
-// These need to be created now so they can be called by return control functions.
-CalibratePumpMenuItem calibrate_pump1(pump1_controller);
-CalibratePumpMenuItem calibrate_pump2(pump2_controller);
-CalibratePumpMenuItem calibrate_pump3(pump3_controller);
+// Create calibrate pump menu items. These need to be created now so they can be called by the return control functions.
+CalibratePumpMenuItem calibrate_pump1(board.pump1.controller), calibrate_pump2(board.pump2.controller), calibrate_pump3(board.pump3.controller);
 
 // Returns control to the main_menu, to be used as the completion for menu items added to the main_menu.
-void mainMenuReturnControl() { main_menu.present(); }
+void mainMenuReturnControl() { board.main_menu.present(); }
 
 // Returns control to the pump1_menu, to be used as the completion for menu items added to the pump1_menu.
-void pump1MenuReturnControl() { pump1_menu.present(); }
+void pump1MenuReturnControl() { board.pump1.menu.present(); }
 
 // Returns control to the pump2_menu, to be used as the completion for menu items added to the pump2_menu.
-void pump2MenuReturnControl() { pump2_menu.present(); }
+void pump2MenuReturnControl() { board.pump2.menu.present(); }
 
 // Returns control to the pump3_menu, to be used as the completion for menu items added to the pump3_menu.
-void pump3MenuReturnControl() { pump3_menu.present(); }
+void pump3MenuReturnControl() { board.pump3.menu.present(); }
 
 // Returns control to the settings_menu, to be used as the completion for menu items added to the settings_menu.
-void settingsMenuReturnControl() { settings_menu.present(); }
+void settingsMenuReturnControl() { board.settings_menu.present(); }
 
 // Returns control the the CalibratePumpMenuItem for pump 1 after calibration has ended.
 void pump1CalibrationCompletion() { calibrate_pump1.calibrationComplete(); }
@@ -78,77 +99,63 @@ void pump2CalibrationCompletion() { calibrate_pump2.calibrationComplete(); }
 // Returns control the the CalibratePumpMenuItem for pump 3 after calibration has ended.
 void pump3CalibrationCompletion() { calibrate_pump3.calibrationComplete(); }
 
-RotaryEncoder rotary_encoder(19, 20, 21, 150); // TODO add actual pin values. Also 150 milliseconds sounds high for the debounce duration.
-
 // Triggered by the ISR for the Rotary Encoder push button.
-// Sends an input to the rotary encoder to handle debounce
-void buttonInput() { rotary_encoder.buttonInput(millis()); }
+// Sends an input to the rotary encoder to handle debounce.
+void buttonInput() { board.rotary_encoder.buttonInput(millis()); }
 
 // Triggered by the ISR for the rotary encoder A pin value changes.
-void encoderAInput() { rotary_encoder.encodeA(); }
+void encoderAInput() { board.rotary_encoder.encodeA(); }
 
 // Triggered by the ISR for the rotary encoder B pin value changes.
-void encoderBInput() { rotary_encoder.encodeB(); }
+void encoderBInput() { board.rotary_encoder.encodeB(); }
 
 // A callback function the RotaryEncoder will call every time a RotaryEncoder Action is detected.
-void actionDetected(RotaryEncoder::Actions action) { main_menu.sendAction(action); }
+void actionDetected(RotaryEncoder::Actions action) { board.main_menu.sendAction(action); }
+
+void addPumpMenuItems(const Menu& menu, CalibratePumpMenuItem& calibrate_pump, void (*return_control)()) {
+  menu.addMenuItem(new ReturnMenuItem(), return_control);
+  menu.addMenuItem(new SetDoseMenuItem(board.pump1.controller), return_control);
+  menu.addMenuItem(new EnablePumpMenuItem(board.pump1.controller), return_control);
+  menu.addMenuItem(new PrimePumpMenuItem(board.pump1.controller), return_control);
+  menu.addMenuItem(&calibrate_pump, return_control);
+  menu.addMenuItem(new ResetPumpSettingsMenuItem(board.pump1.controller), return_control);
+}
 
 void setup() {
-  display.setup();
-  display_controller.setup();
-  rotary_encoder.setup(&encoderAInput, &encoderBInput, &buttonInput, &actionDetected);
-  pump1_controller.setup(&pump1CalibrationCompletion);
-  pump2_controller.setup(&pump2CalibrationCompletion);
-  pump3_controller.setup(&pump3CalibrationCompletion);
+  // Setup display and controllers.
+  board.display.setup();
+  board.display_controller.setup();
+  board.rotary_encoder.setup(&encoderAInput, &encoderBInput, &buttonInput, &actionDetected);
+  board.pump1.controller.setup(&pump1CalibrationCompletion);
+  board.pump2.controller.setup(&pump2CalibrationCompletion);
+  board.pump3.controller.setup(&pump3CalibrationCompletion);
 
-  // Configure the main_menu then add items.
-  // I don't think I'll ever dismiss the main_menu so this completion can probably be a nullptr.
-  // And just as I'm writing this I find myself wanting to be able to dismiss the main menu then turn the LCD brightness to 0 after some period of inactivity.
-  // Let's address this concern later.
-  main_menu.configurePresentable(&display, nullptr);
-  // TODO: Add items to the main menu
-  main_menu.addMenuItem(new StartDosingMenuItem(pump1_controller, pump2_controller, pump3_controller), &mainMenuReturnControl);
-  main_menu.addMenuItem(&pump1_menu, &mainMenuReturnControl);
-  main_menu.addMenuItem(&pump2_menu, &mainMenuReturnControl);
-  main_menu.addMenuItem(&pump3_menu, &mainMenuReturnControl);
-  main_menu.addMenuItem(&settings_menu, &mainMenuReturnControl);
+  // Configure the main menu and add menu items.
+  board.main_menu.configurePresentable(&board.display, nullptr);
+  board.main_menu.addMenuItem(new StartDosingMenuItem(board.pump1.controller, board.pump2.controller, board.pump3.controller), &mainMenuReturnControl);
+  board.main_menu.addMenuItem(&board.pump1.menu, &mainMenuReturnControl);
+  board.main_menu.addMenuItem(&board.pump2.menu, &mainMenuReturnControl);
+  board.main_menu.addMenuItem(&board.pump3.menu, &mainMenuReturnControl);
+  board.main_menu.addMenuItem(&board.settings_menu, &mainMenuReturnControl);
 
-  // TODO: Add items to the pump1_menu
-  pump1_menu.addMenuItem(new ReturnMenuItem(), &pump1MenuReturnControl);
-  pump1_menu.addMenuItem(new SetDoseMenuItem(pump1_controller), &pump1MenuReturnControl);
-  pump1_menu.addMenuItem(new EnablePumpMenuItem(pump1_controller), &pump1MenuReturnControl);
-  pump1_menu.addMenuItem(new PrimePumpMenuItem(pump1_controller), &pump1MenuReturnControl);
-  pump1_menu.addMenuItem(&calibrate_pump1, &pump1MenuReturnControl);
-  pump1_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump1_controller), &pump1MenuReturnControl);
+  // Add items to the pump menus.
+  addPumpMenuItems(board.pump1.menu, calibrate_pump1, &pump1MenuReturnControl);
+  addPumpMenuItems(board.pump2.menu, calibrate_pump2, &pump2MenuReturnControl);
+  addPumpMenuItems(board.pump3.menu, calibrate_pump3, &pump3MenuReturnControl);
 
-  // TODO: Add items to the pump2_menu
-  pump2_menu.addMenuItem(new ReturnMenuItem(), &pump2MenuReturnControl);
-  pump2_menu.addMenuItem(new SetDoseMenuItem(pump2_controller), &pump2MenuReturnControl);
-  pump2_menu.addMenuItem(new EnablePumpMenuItem(pump2_controller), &pump2MenuReturnControl);
-  pump2_menu.addMenuItem(new PrimePumpMenuItem(pump2_controller), &pump2MenuReturnControl);
-  pump2_menu.addMenuItem(&calibrate_pump2, &pump2MenuReturnControl);
-  pump2_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump2_controller), &pump2MenuReturnControl);
+  //Add items to the settings_menu
+  board.settings_menu.addMenuItem(new ReturnMenuItem(), &settingsMenuReturnControl);
+  board.settings_menu.addMenuItem(new BrightnessMenuItem(board.display_controller), &settingsMenuReturnControl);
+  board.settings_menu.addMenuItem(new ContrastMenuItem(board.display_controller), &settingsMenuReturnControl);
 
-  // TODO: Add items to the pump3_menu
-  pump3_menu.addMenuItem(new ReturnMenuItem(), &pump3MenuReturnControl);
-  pump3_menu.addMenuItem(new SetDoseMenuItem(pump3_controller), &pump3MenuReturnControl);
-  pump3_menu.addMenuItem(new EnablePumpMenuItem(pump3_controller), &pump3MenuReturnControl);
-  pump3_menu.addMenuItem(new PrimePumpMenuItem(pump3_controller), &pump3MenuReturnControl);
-  pump3_menu.addMenuItem(&calibrate_pump3, &pump3MenuReturnControl);
-  pump3_menu.addMenuItem(new ResetPumpSettingsMenuItem(pump3_controller), &pump3MenuReturnControl);
-
-  // TODO: Add items to the settings_menu
-  settings_menu.addMenuItem(new ReturnMenuItem(), &settingsMenuReturnControl);
-  settings_menu.addMenuItem(new BrightnessMenuItem(display_controller), &settingsMenuReturnControl);
-  settings_menu.addMenuItem(new ContrastMenuItem(display_controller), &settingsMenuReturnControl);
-
-  main_menu.present();
-  main_menu.sendAction(RotaryEncoder::Actions::select);
+  // Present the main menu and start dosing.
+  board.main_menu.present();
+  board.main_menu.sendAction(RotaryEncoder::Actions::select);
 }
 
 void loop() {
   unsigned long current_time = millis();
-  pump1_controller.pollPumpStatus(current_time);
-  pump2_controller.pollPumpStatus(current_time);
-  pump3_controller.pollPumpStatus(current_time);
+  board.pump1.controller.pollPumpStatus(current_time);
+  board.pump2.controller.pollPumpStatus(current_time);
+  board.pump3.controller.pollPumpStatus(current_time);
 }
