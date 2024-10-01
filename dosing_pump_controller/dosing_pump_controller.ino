@@ -47,11 +47,11 @@ const struct Board {
     const uint8_t d3 = 3;    // Pin #21: D3 PWM  - Connected to LCD pin#15 to control brightness
     const uint8_t d4 = 4;    // Pin #22: D4 - unused
     const uint8_t d5 = 5;    // Pin #23: D5 PWM - Connected to LCD pin#3 to control contrast
-    const uint8_t d6 = 6;    // Pin #24: D6 PWM - unused
+    const uint8_t d6 = 6;    // Pin #24: D6 PWM - Connected to Motor1 IN1
     const uint8_t d7 = 7;    // Pin #25: D7 - unused
     const uint8_t d8 = 8;    // Pin #26: D8 - unused
-    const uint8_t d9 = 9;    // Pin #27: D9 PWM - Connected to Motor1 IN1
-    const uint8_t d10 = 10;  // Pin #28: D10 PWM - Connected to Motor2 IN1
+    const uint8_t d9 = 9;    // Pin #27: D9 PWM - Connected to Motor2 IN1
+    const uint8_t d10 = 10;  // Pin #28: D10 PWM - Connected to Motor3 IN1
     const uint8_t d11 = 11;  // Pin #29: D11 - unused
     const uint8_t d12 = 12;  // Pin #30: D12 - Connected to LCD pin#4
   } pins;
@@ -67,9 +67,9 @@ const struct Board {
   const struct DosingPump {
     const PumpController controller;
     const Menu menu;
-  } pump1 = {PumpController(StorageManager::PumpID::pump_1, storage_manager, Motor(&pins.d9, nullptr)), Menu("Pump 1")},
-    pump2 = {PumpController(StorageManager::PumpID::pump_2, storage_manager, Motor(&pins.d10, nullptr)), Menu("Pump 2")},
-    pump3 = {PumpController(StorageManager::PumpID::pump_3, storage_manager, Motor(nullptr, nullptr)), Menu("Pump 3")};
+  } pump1 = {PumpController(StorageManager::PumpID::pump_1, storage_manager, Motor(&pins.d6, nullptr)), Menu("Pump 1")},
+    pump2 = {PumpController(StorageManager::PumpID::pump_2, storage_manager, Motor(&pins.d9, nullptr)), Menu("Pump 2")},
+    pump3 = {PumpController(StorageManager::PumpID::pump_3, storage_manager, Motor(&pins.d10, nullptr)), Menu("Pump 3")};
 } board;
 
 // Create calibrate pump menu items. These need to be created now so they can be called by the return control functions.
