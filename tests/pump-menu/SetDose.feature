@@ -1,6 +1,6 @@
 Feature: Set Dose feature
 
-    Scenario Outline: User navigates a Pump Menu
+    Scenario Outline: User updates doses per day
         Given the user is viewing the Doses Per Day input section of the Set Dose feature
         And the current doses/day displayed is: <initial_doses>
         When the user rotates the rotary encoder to the <direction>
