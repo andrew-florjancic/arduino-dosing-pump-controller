@@ -34,6 +34,8 @@ class CalibratePumpMenuItem : public MenuItem {
         const String complete_message = "Complete";
 
         uint8_t duty_cycle; // The current duty cycle the pump will operate at.
+        const uint8_t min_duty = 0; // Min value for the duty_cycle
+        const uint8_t max_duty = 255; // Max value for the duty_cycle
 
         // Displays the current state of the Feature.
         void showFeature();
