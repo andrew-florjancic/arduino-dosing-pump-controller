@@ -21,11 +21,13 @@ void CalibratePumpMenuItem::presentableWillDismiss() {
 
 void CalibratePumpMenuItem::leftAction() {
     if(feature_state != input) { return; }
+    if(duty_cycle == min_duty) { return; }
     duty_cycle--;
 }
 
 void CalibratePumpMenuItem::rightAction() {
     if(feature_state != input) { return; }
+    if(duty_cycle == max_duty) { return; }
     duty_cycle++;
 }
 
