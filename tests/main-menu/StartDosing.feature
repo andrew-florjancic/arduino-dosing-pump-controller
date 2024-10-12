@@ -13,10 +13,10 @@ Feature: Dosing
         Then the <pump#> on the screen displays: <enabled>
 
         Scenarios: Testing Pump 1 Dosing schedules
-        |  pump# | enabled |
-        | Pump 1 |     Off |
-        | Pump 1 |      On |
-        | Pump 2 |     Off |
-        | Pump 2 |      On |
-        | Pump 3 |     Off |
-        | Pump 3 |      On |
+            |  pump# | enabled |
+            | Pump 1 |     Off |
+            | Pump 1 |      On |
+            | Pump 2 |     Off |
+            | Pump 2 |      On |
+            | Pump 3 |     Off |
+            | Pump 3 |      On |
