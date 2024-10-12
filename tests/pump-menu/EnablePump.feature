@@ -17,7 +17,7 @@ Feature: Enable Pump
             |             On |     right |          On |
 
     Scenario: User selects current pump status
-    Given the user is viewing the Enable Pump feature
-    When the user selects the current pump status
-    Then the Enablke Pump feature is dismissed
-    And the pump menu is displayed
+        Given the user is viewing the Enable Pump feature
+        When the user selects the current pump status
+        Then the Enablke Pump feature is dismissed
+        And the pump menu is displayed
