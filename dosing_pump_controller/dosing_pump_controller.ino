@@ -19,6 +19,7 @@
 #include "PrimePumpMenuItem.h"
 #include "CalibratePumpMenuItem.h"
 #include "ResetPumpSettingsMenuItem.h"
+#include "ComingSoonMenuItem.h"
 
 // A model of the Arduino Nano Every board being used for the dosing pump controller.
 const struct Board {
@@ -114,6 +115,7 @@ void actionDetected(RotaryEncoder::Actions action) { board.main_menu.sendAction(
 
 void addPumpMenuItems(const Menu& menu, CalibratePumpMenuItem& calibrate_pump, void (*return_control)()) {
   menu.addMenuItem(new ReturnMenuItem(), return_control);
+  menu.addMenuItem(new ComingSoonMenuItem("Info"), return_control);
   menu.addMenuItem(new SetDoseMenuItem(board.pump1.controller), return_control);
   menu.addMenuItem(new EnablePumpMenuItem(board.pump1.controller), return_control);
   menu.addMenuItem(new PrimePumpMenuItem(board.pump1.controller), return_control);
@@ -147,6 +149,8 @@ void setup() {
   board.settings_menu.addMenuItem(new ReturnMenuItem(), &settingsMenuReturnControl);
   board.settings_menu.addMenuItem(new BrightnessMenuItem(board.display_controller), &settingsMenuReturnControl);
   board.settings_menu.addMenuItem(new ContrastMenuItem(board.display_controller), &settingsMenuReturnControl);
+  board.settings_menu.addMenuItem(new ComingSoonMenuItem("Set Time"), &settingsMenuReturnControl);
+  board.settings_menu.addMenuItem(new ComingSoonMenuItem("Reset All"), &settingsMenuReturnControl);
 
   // Present the main menu and start dosing.
   board.main_menu.present();

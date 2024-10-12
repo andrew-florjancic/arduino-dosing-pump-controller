@@ -13,13 +13,17 @@ Feature: Settings Menu feature
             | initial_first | initial_second | direction | updated_first | updated_second |
             |        Return |     Brightness |      left |        Return |     Brightness |
             |    Brightness |       Contrast |      left |        Return |     Brightness |
-            |      Contrast |           None |      left |    Brightness |       Contrast |
+            |      Contrast |       Set Time |      left |    Brightness |       Contrast |
+            |      Set Time |      Reset All |      left |      Contrast |       Set Time |
+            |     Reset All |           None |      left |      Set Time |      Reset All |
     
         Scenarios: User turns the rotary encoder to the right
             | initial_first | initial_second | direction | updated_first | updated_second |
             |        Return |     Brightness |     right |    Brightness |       Contrast |
-            |    Brightness |       Contrast |     right |    Contrast   |           None |
-            |      Contrast |       Contrast |     right |    Contrast   |           None |
+            |    Brightness |       Contrast |     right |    Contrast   |       Set Time |
+            |      Contrast |       Contrast |     right |    Set Time   |      Reset All |
+            |      Set Time |      Reset All |     right |    Reset All  |           None |
+            |     Reset All |           None |     right |    Reset All  |           None |
 
     Scenario Outline: User selects the current item
         When the user selects the <current_item>
@@ -27,7 +31,10 @@ Feature: Settings Menu feature
         And the <feature> will be displayed
 
         Scenarios:
-            | current_item |    feature |
-            |       Return |  Main Menu |
-            |   Brightness | Brightness |
-            |     Contrast |   Contrast |
+            | current_item |         feature |
+            |       Return |       Main Menu |
+            |   Brightness |      Brightness |
+            |     Contrast |        Contrast |
+            |     Set Time | Set Date & Time |
+            |    Reset All |   Factory Reset |
+            

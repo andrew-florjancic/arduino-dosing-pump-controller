@@ -11,8 +11,9 @@ Feature: Pump Menu feature
 
         Scenarios: User turns the rotary encoder to the left
             | initial_first | initial_second | direction | updated_first | updated_second |
-            |        Return |       Set Dose |      left |        Return |       Set Dose |
-            |      Set Dose |    Enable Pump |      left |        Return |       Set Dose |
+            |        Return |           Info |      left |        Return |           Info |
+            |          Info |       Set Dose |      left |        Return |           Info |
+            |      Set Dose |    Enable Pump |      left |          Info |       Set Dose |
             |   Enable Pump |          Prime |      left |      Set Dose |    Enable Pump |
             |         Prime |      Calibrate |      left |   Enable Pump |          Prime |
             |     Calibrate |          Reset |      left |         Prime |      Calibrate |
@@ -20,7 +21,8 @@ Feature: Pump Menu feature
     
         Scenarios: User turns the rotary encoder to the right
             | initial_first | initial_second | direction | updated_first | updated_second |
-            |        Return |       Set Dose |     right |      Set Dose |    Enable Pump |
+            |        Return |           Info |     right |          Info |       Set Dose |
+            |          Info |       Set Dose |     right |      Set Dose |    Enable Pump |
             |      Set Dose |    Enable Pump |     right |   Enable Pump |          Prime |
             |   Enable Pump |          Prime |     right |         Prime |      Calibrate |
             |         Prime |      Calibrate |     right |     Calibrate |          Reset |
@@ -35,6 +37,7 @@ Feature: Pump Menu feature
         Scenarios:
             | current_item |        feature |
             |       Return |      Main Menu |
+            |       Info |      Coming Soon |
             |     Set Dose |       Set Dose |
             |  Enable Pump |    Enable Pump |
             |        Prime |     Prime Pump |
