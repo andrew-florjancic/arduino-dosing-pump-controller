@@ -25,7 +25,9 @@ Feature: Settings Menu feature
         When the user selects the <current_item>
         Then the settings menu will no longer be displayed
         And the <feature> will be displayed
-        | current_item |    feature |
-        |       Return |  Main Menu |
-        |   Brightness | Brightness |
-        |     Contrast |   Contrast |
+
+        Scenarios:
+            | current_item |    feature |
+            |       Return |  Main Menu |
+            |   Brightness | Brightness |
+            |     Contrast |   Contrast |
