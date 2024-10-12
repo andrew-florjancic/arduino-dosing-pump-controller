@@ -24,7 +24,7 @@ Feature: Reset Pump Settings
         And the pump menu is displayed
 
         Scenarios:
-        | confirmation |
-        |       Cancel |
-        |        Reset |
+            | confirmation |
+            |       Cancel |
+            |        Reset |
         
