@@ -31,11 +31,13 @@ Feature: Pump Menu feature
         When the user selects the <current_item>
         Then the settings menu will no longer be displayed
         And the <feature> will be displayed
-        | current_item |        feature |
-        |       Return |      Main Menu |
-        |     Set Dose |       Set Dose |
-        |  Enable Pump |    Enable Pump |
-        |        Prime |     Prime Pump |
-        |    Calibrate | Calibrate Pump |
-        |        Reset |     Reset Pump |
+        
+        Scenarios:
+            | current_item |        feature |
+            |       Return |      Main Menu |
+            |     Set Dose |       Set Dose |
+            |  Enable Pump |    Enable Pump |
+            |        Prime |     Prime Pump |
+            |    Calibrate | Calibrate Pump |
+            |        Reset |     Reset Pump |
         
