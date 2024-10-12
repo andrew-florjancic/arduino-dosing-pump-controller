@@ -78,7 +78,7 @@ void SetDoseMenuItem::decrementDoseBy(uint8_t value) {
 }
 
 void SetDoseMenuItem::incrementDoseBy(uint8_t value) {
-    if((getDoseDuration() + value) >= (pump_controller.day_length / frequency_menu.getCurrentItem()->data)) { return; }
+    if(((double)getDoseDuration() + ((double)value * 1000)) >= ((double)pump_controller.day_length / (double)frequency_menu.getCurrentItem()->data)) { return; }
     dose_quantity += value;
 }
 
