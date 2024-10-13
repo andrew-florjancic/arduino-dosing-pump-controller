@@ -23,13 +23,13 @@ class ResetPumpSettingsMenuItem : public MenuItem {
         void showFeature();
 
         // Resets the confrim reset state.
-        void presentableWillDismiss();
+        void presentableWillDismiss() override;
 
         // Updates the confirm reset value to false.
-        void leftAction();
+        void leftAction() override;
 
         // Updates the confirm reset value to true.
-        void rightAction();
+        void rightAction() override;
 
         // Resets the pump settings if the confirm reset value is true then dismisses the Feature.
         void selectAction();

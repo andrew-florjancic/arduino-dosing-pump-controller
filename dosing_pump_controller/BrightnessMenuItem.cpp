@@ -11,8 +11,6 @@ void BrightnessMenuItem::showFeature() {
     display->lcd.print(display_controller.currentBrightness());
 }
 
-void BrightnessMenuItem::presentableWillDismiss() {}
-
 void BrightnessMenuItem::leftAction() {
     display_controller.decreaseBrightness();
 }

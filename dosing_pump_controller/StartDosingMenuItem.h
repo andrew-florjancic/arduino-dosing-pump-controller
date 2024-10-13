@@ -30,16 +30,10 @@ class StartDosingMenuItem : public MenuItem {
         void showFeature();
 
         // Starts each dosing pump schedule.
-        void presentableWillPerform();
+        void presentableWillPerform() override;
 
         // Stops each dosing pump schedule.
-        void presentableWillDismiss();
-        
-        // Required method, unused.
-        void leftAction();
-
-        // Required method, unused.
-        void rightAction();
+        void presentableWillDismiss() override;
 
         // Returns to the main menu. 
         void selectAction();

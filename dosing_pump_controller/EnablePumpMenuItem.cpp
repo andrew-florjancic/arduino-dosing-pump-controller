@@ -12,8 +12,6 @@ void EnablePumpMenuItem::showFeature() {
     display->lcd.print(is_enabled ? on_message : off_message);
 }
 
-void EnablePumpMenuItem::presentableWillDismiss() {}
-
 void EnablePumpMenuItem::leftAction() {
     is_enabled = false;
 }

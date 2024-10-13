@@ -31,16 +31,16 @@ class SetDoseMenuItem : public MenuItem {
         void showFeature();
 
         // Resets the Feature state and dose duration.
-        void presentableWillDismiss();
+        void presentableWillDismiss() override;
 
         // Used to decrease the dose frequency or dose duration values depending on the Feature state.
-        void leftAction();
+        void leftAction() override;
 
         // Used to increase the dose frequency or dose duration values depending on the Feature state.
-        void rightAction();
+        void rightAction() override;
 
         // Confirms the current dose settings and advances the presentation to the next Feature state.
-        void selectAction();
+        void selectAction() override;
 
         // Advances the Feature state to the next state.
         nextState();

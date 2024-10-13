@@ -22,15 +22,12 @@ class ContrastMenuItem : public MenuItem {
 
         // Displays the current contrast level to the user.
         void showFeature();
-
-        // Required method, unused.
-        void presentableWillDismiss();
         
         // Decrements the contrast level.
-        void leftAction();
+        void leftAction() override;
 
         // Increments the contrast level.
-        void rightAction();
+        void rightAction() override;
 
         // Saves the current contrast level to stored device settings.
         void selectAction();

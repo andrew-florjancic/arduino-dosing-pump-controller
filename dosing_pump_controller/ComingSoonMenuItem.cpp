@@ -9,10 +9,4 @@ void ComingSoonMenuItem::showFeature() {
     display->lcd.print(display_message);
 }
 
-void ComingSoonMenuItem::presentableWillDismiss() {}
-
-void ComingSoonMenuItem::leftAction() {}
-
-void ComingSoonMenuItem::rightAction() {}
-
 void ComingSoonMenuItem::selectAction() { completePresentation(); }

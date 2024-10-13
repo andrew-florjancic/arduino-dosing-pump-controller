@@ -18,15 +18,12 @@ class BrightnessMenuItem : public MenuItem {
 
         // Displays the current brightness level to the user.
         void showFeature();
-
-        // Required method, unused.
-        void presentableWillDismiss();
         
         // Decrements the brightness level.
-        void leftAction();
+        void leftAction() override;
 
         // Increments the brightness level.
-        void rightAction();
+        void rightAction() override;
 
         // Saves the current brightness level to stored device settings.
         void selectAction();

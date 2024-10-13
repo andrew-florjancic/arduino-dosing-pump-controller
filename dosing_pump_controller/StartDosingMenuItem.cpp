@@ -33,10 +33,4 @@ void StartDosingMenuItem::presentableWillDismiss() {
     pump3_controller.stopDosing();
 }
 
-void StartDosingMenuItem::leftAction() {}
-
-void StartDosingMenuItem::rightAction() {}
-
-void StartDosingMenuItem::selectAction() {
-    completePresentation();
-}
+void StartDosingMenuItem::selectAction() { completePresentation(); }

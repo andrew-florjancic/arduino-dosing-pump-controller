@@ -29,13 +29,7 @@ class PrimePumpMenuItem : public MenuItem {
         void showFeature();
 
         // Resets the Feature state.
-        void presentableWillDismiss();
-
-        // Required method, unused
-        void leftAction();
-
-        // Required method, unused
-        void rightAction();
+        void presentableWillDismiss() override;
 
         // Turns the pump on or off depending on the current Feature state.
         void selectAction();

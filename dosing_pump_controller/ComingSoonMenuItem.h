@@ -15,15 +15,6 @@ class ComingSoonMenuItem : public MenuItem {
         // Displays the display_message.
         void showFeature();
 
-        // Required method, unused.
-        void presentableWillDismiss();
-        
-        // Required method, unused.
-        void leftAction();
-
-        // Required method, unused.
-        void rightAction();
-
         // Returns the user to the previous presentable
         void selectAction();
     public:

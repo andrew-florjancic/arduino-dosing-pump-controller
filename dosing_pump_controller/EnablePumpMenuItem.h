@@ -24,15 +24,12 @@ class EnablePumpMenuItem : public MenuItem {
 
         // Shows the is_enabled pump status.
         void showFeature();
-
-        // Required method, unused.
-        void presentableWillDismiss();
         
         // Sets the is_enabled value to false.
-        void leftAction();
+        void leftAction() override;
 
         // Sets the is_enabled value to true.
-        void rightAction();
+        void rightAction() override;
 
         // Updated the current is_enabled value and saves the pump setting.
         void selectAction();
