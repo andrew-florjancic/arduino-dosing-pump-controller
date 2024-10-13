@@ -12,15 +12,6 @@ class ReturnMenuItem : public MenuItem {
         void showFeature();
 
         // Empty method, should never actually be executed
-        void presentableWillDismiss();
-        
-        // Empty method, should never actually be executed
-        void leftAction();
-        
-        // Empty method, should never actually be executed
-        void rightAction();
-
-        // Empty method, should never actually be executed
         void selectAction(); 
     public:
         // Constructor creates a ReturnMenuItem.

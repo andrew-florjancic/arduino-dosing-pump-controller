@@ -41,13 +41,13 @@ class CalibratePumpMenuItem : public MenuItem {
         void showFeature();
 
         // Resets the Feature state.
-        void presentableWillDismiss();
+        void presentableWillDismiss() override;
 
         // Decrements the duty cylce during the input Feature state.
-        void leftAction();
+        void leftAction() override;
 
         // Increments the duty cycle during the input Feature state.
-        void rightAction();
+        void rightAction() override;
 
         // Selects the current action based on the current Feature state.
         void selectAction();

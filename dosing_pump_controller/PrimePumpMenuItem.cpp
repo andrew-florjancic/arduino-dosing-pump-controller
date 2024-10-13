@@ -16,10 +16,6 @@ void PrimePumpMenuItem::presentableWillDismiss() {
     feature_state = start;
 }
 
-void PrimePumpMenuItem::leftAction() {}
-
-void PrimePumpMenuItem::rightAction() {}
-
 void PrimePumpMenuItem::selectAction() {
     switch(feature_state) {
         case start:

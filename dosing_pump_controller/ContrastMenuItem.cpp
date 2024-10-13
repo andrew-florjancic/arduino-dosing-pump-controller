@@ -11,8 +11,6 @@ void ContrastMenuItem::showFeature() {
     display->lcd.print(display_controller.currentContrast());
 }
 
-void ContrastMenuItem::presentableWillDismiss() {}
-
 void ContrastMenuItem::leftAction() {
     display_controller.decreaseContrast();
 }

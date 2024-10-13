@@ -61,16 +61,16 @@ class Presentable : public Feature {
         void host(Presentable* guest);
 
         // This method is called after the Presentable is presented but before the first performance which provides an opportunity to start any background tasks.
-        virtual void presentableWillPerform() {}
+        virtual void presentableWillPerform() {};
 
         // This method is called just before the Presentable is dismissed which provides an opportunity to perform any cleanup tasks to prepare for the next presentation. 
-        virtual void presentableWillDismiss() = 0;
+        virtual void presentableWillDismiss() {};
 
         // Executes code triggered by a left Action sent to the Presentable.
-        virtual void leftAction() = 0;
+        virtual void leftAction() {};
 
         // Executes code triggered by a right Action sent to the Presentable.
-        virtual void rightAction() = 0;
+        virtual void rightAction() {};
 
         // Executes code triggered by a select Action sent to the Presentable.
         virtual void selectAction() = 0;

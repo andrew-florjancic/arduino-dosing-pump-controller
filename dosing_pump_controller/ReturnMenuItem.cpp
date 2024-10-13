@@ -6,10 +6,4 @@ ReturnMenuItem::ReturnMenuItem() : MenuItem("Return", true) {}
 
 void ReturnMenuItem::showFeature() {}
 
-void ReturnMenuItem::presentableWillDismiss() {}
-
-void ReturnMenuItem::leftAction() {}
-
-void ReturnMenuItem::rightAction() {}
-
 void ReturnMenuItem::selectAction() {}
