@@ -5,7 +5,7 @@
 
 #include <DoublyLinkedList.h>
 #include <Display.h>
-#include "StorageManager.h"
+#include "../Managers/StorageManager.h"
 
 // Controls the LCD Display and handles updates to brightness and contrast settings.
 class DisplayController {

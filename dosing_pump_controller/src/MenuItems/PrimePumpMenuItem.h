@@ -5,7 +5,7 @@
 
 #include <Arduino.h>
 #include <MenuItem.h>
-#include "PumpController.h"
+#include "../Controllers/PumpController.h"
 
 // A MenuItem that allows a user to prime a pump for any length of time decided by the user.
 class PrimePumpMenuItem : public MenuItem {

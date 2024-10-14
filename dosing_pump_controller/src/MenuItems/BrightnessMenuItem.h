@@ -5,7 +5,7 @@
 
 #include <Arduino.h>
 #include <MenuItem.h>
-#include "DisplayController.h"
+#include "../Controllers/DisplayController.h"
 
 // A Menu item that allows the user to adjust and save the brightness setting.
 class BrightnessMenuItem : public MenuItem {

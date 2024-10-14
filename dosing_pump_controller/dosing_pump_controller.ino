@@ -7,19 +7,19 @@
 #include <Menu.h>
 #include <Motor.h>
 #include <RotaryEncoder.h>
-#include "StorageManager.h"
-#include "PumpController.h"
-#include "DisplayController.h"
-#include "StartDosingMenuItem.h"
-#include "ReturnMenuItem.h"
-#include "BrightnessMenuItem.h"
-#include "ContrastMenuItem.h"
-#include "SetDoseMenuItem.h"
-#include "EnablePumpMenuItem.h"
-#include "PrimePumpMenuItem.h"
-#include "CalibratePumpMenuItem.h"
-#include "ResetPumpSettingsMenuItem.h"
-#include "ComingSoonMenuItem.h"
+#include "src/Managers/StorageManager.h"
+#include "src/Controllers/PumpController.h"
+#include "src/Controllers/DisplayController.h"
+#include "src/MenuItems/StartDosingMenuItem.h"
+#include "src/MenuItems/ReturnMenuItem.h"
+#include "src/MenuItems/BrightnessMenuItem.h"
+#include "src/MenuItems/ContrastMenuItem.h"
+#include "src/MenuItems/SetDoseMenuItem.h"
+#include "src/MenuItems/EnablePumpMenuItem.h"
+#include "src/MenuItems/PrimePumpMenuItem.h"
+#include "src/MenuItems/CalibratePumpMenuItem.h"
+#include "src/MenuItems/ResetPumpSettingsMenuItem.h"
+#include "src/MenuItems/ComingSoonMenuItem.h"
 
 // A model of the Arduino Nano Every board being used for the dosing pump controller.
 const struct Board {
