@@ -4,7 +4,7 @@
 #define EnablePumpMenuItem_h
 
 #include <MenuItem.h>
-#include "PumpController.h"
+#include "../Controllers/PumpController.h"
 
 // A Menu item that allows the user to enable or disable dosing for a pump.
 class EnablePumpMenuItem : public MenuItem {

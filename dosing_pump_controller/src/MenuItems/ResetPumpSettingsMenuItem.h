@@ -5,7 +5,7 @@
 
 #include <Arduino.h>
 #include <MenuItem.h>
-#include "PumpController.h"
+#include "../Controllers/PumpController.h"
 
 // A MenuItem that allows the user to reset a pumps settings to the factory default values.
 class ResetPumpSettingsMenuItem : public MenuItem {

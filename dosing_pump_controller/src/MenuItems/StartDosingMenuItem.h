@@ -5,7 +5,7 @@
 
 #include <Arduino.h>
 #include <MenuItem.h>
-#include "PumpController.h"
+#include "../Controllers/PumpController.h"
 
 // A MenuItem that starts each dosing pump schedule and displays the pump status.
 class StartDosingMenuItem : public MenuItem {

@@ -41,5 +41,3 @@ void Menu::showFeature() {
     display->lcd.setCursor(0,0);
     display->lcd.print(cursor);
 }
-
-void Menu::presentableWillDismiss() {}

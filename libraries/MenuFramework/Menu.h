@@ -19,9 +19,6 @@ class Menu: public MenuItem {
         // Displays the menu starting from the menu's current item.
         void showFeature();
 
-        // Does nothing but is required to implement.
-        void presentableWillDismiss() override;
-
         // Updates the current item in the menu to the previous item in the menu
         void leftAction() override;
 

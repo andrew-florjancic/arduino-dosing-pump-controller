@@ -5,7 +5,7 @@
 
 #include <Arduino.h>
 #include <MenuItem.h>
-#include "PumpController.h"
+#include "../Controllers/PumpController.h"
 
 // A MenuItem that allows a user to set the duty cycle of a dosing pump and then turn the pump on for a calibration period. 
 class CalibratePumpMenuItem : public MenuItem {

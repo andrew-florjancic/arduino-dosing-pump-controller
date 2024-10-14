@@ -6,7 +6,7 @@
 #include <Arduino.h>
 #include <MenuItem.h>
 #include <DoublyLinkedList.h>
-#include "PumpController.h"
+#include "../Controllers/PumpController.h"
 
 // A MenuItem that allows the user to set dose frequency and dose duration. 
 class SetDoseMenuItem : public MenuItem {
