@@ -23,8 +23,6 @@ void ResetPumpSettingsMenuItem::rightAction() {
 }
 
 void ResetPumpSettingsMenuItem::selectAction() {
-    if(confirm_reset) {
-        pump_controller.resetPumpSettings();
-    }
+    if(confirm_reset) { pump_controller.resetPumpSettings(); }
     completePresentation();
 }

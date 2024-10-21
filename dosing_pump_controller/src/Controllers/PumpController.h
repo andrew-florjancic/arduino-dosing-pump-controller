@@ -4,8 +4,8 @@
 #define PumpController_h
 
 #include <Arduino.h>
-#include <Motor.h>
 #include "../Managers/StorageManager.h"
+#include <Motor.h>
 
 // Controls pump operation and communicates with the StorageManager to update to pump settings.
 class PumpController {
