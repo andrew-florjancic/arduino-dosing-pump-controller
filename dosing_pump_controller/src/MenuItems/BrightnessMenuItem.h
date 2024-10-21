@@ -11,7 +11,7 @@
 class BrightnessMenuItem : public MenuItem {
     private:
         // The DisplayController used to update and save brightness settings.
-        const DisplayController display_controller;
+        DisplayController display_controller;
 
         // The message displayed to the user when selecting a brightness value.
         const String input_message = "Brightness: ";
@@ -31,6 +31,6 @@ class BrightnessMenuItem : public MenuItem {
 
         // Constructor creates a BrightnessMenuItem.
         // @param display_controller: The DisplayController that will be used to update and save brightness settings.
-        BrightnessMenuItem(const DisplayController& display_controller);
+        BrightnessMenuItem(DisplayController& display_controller);
 };
 #endif

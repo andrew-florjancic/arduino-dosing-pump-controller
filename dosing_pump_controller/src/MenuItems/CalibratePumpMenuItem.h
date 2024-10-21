@@ -12,7 +12,7 @@ class CalibratePumpMenuItem : public MenuItem {
     public:
         // Constructor creates a CalibratePumpMenuItem.
         // @param: pump_controller: The PumpController that will be used to update pump settings and turn the pump on and off.
-        CalibratePumpMenuItem(const PumpController& pump_controller);
+        CalibratePumpMenuItem(PumpController& pump_controller);
 
         // To be called by the pump controller when the calibration period has ended to return control to the menu item. 
         void calibrationComplete();
@@ -23,7 +23,7 @@ class CalibratePumpMenuItem : public MenuItem {
         // `complete`: The calibration has ended and the user can return to the menu.
         enum FeatureState { input, calibrating, complete };
         FeatureState feature_state = input; // The current state of the Feature.
-        const PumpController& pump_controller; // The PumpController used to update the duty cycle and calibrate the pump.
+        PumpController& pump_controller; // The PumpController used to update the duty cycle and calibrate the pump.
         // A Feature message to be displayed when the user is setting the duty cycle for the pump.
         const String input_message = "PWM: ";
 

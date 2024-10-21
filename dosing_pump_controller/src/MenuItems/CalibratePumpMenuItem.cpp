@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "CalibratePumpMenuItem.h"
 
-CalibratePumpMenuItem::CalibratePumpMenuItem(const PumpController& pump_controller) : MenuItem("Calibrate", false), pump_controller(pump_controller) {
+CalibratePumpMenuItem::CalibratePumpMenuItem(PumpController& pump_controller) : MenuItem("Calibrate", false), pump_controller(pump_controller) {
     duty_cycle = pump_controller.getDutyCycle();
 }
 

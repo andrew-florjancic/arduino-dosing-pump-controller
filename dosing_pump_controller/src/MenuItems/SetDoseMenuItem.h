@@ -13,15 +13,15 @@ class SetDoseMenuItem : public MenuItem {
     public:
         // Constructor creates a SetDoseMenuItem.
         // @param pump_controller: The PumpController that will be used to update and save pump settings.
-        SetDoseMenuItem(const PumpController& pump_controller);
+        SetDoseMenuItem(PumpController& pump_controller);
     private:
         // A menu of frequency options the user can choose.
         DoublyLinkedList<uint8_t> frequency_menu = DoublyLinkedList<uint8_t>();
+        DoublyLinkedList<uint8_t> frequency_menu = DoublyLinkedList<uint8_t>(); // A menu of frequency options the user can choose.
+        PumpController pump_controller; // The PumpController that will be used to update and save pump settings.
         const String frequency_message = "Doses/Day: "; // Feature message to be displayed while the user is setting the dose frequency.
         const String dose_message = "Dose: "; // Feature message to be displayed while the user is setting the dose quantity.
         const String complete_message = "Doses set"; // Feature message to be displayed at the end of the Feature.
-        const PumpController pump_controller; // The PumpController that will be used to update and save pump settings.
-
         const String ml_message = " ml"; // Feature message to be displayed after dose quantity
         const String total_message = "Total: "; // Feature message to be displayed while the user is setting the dose quantity
         

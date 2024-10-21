@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "ResetPumpSettingsMenuItem.h"
 
-ResetPumpSettingsMenuItem::ResetPumpSettingsMenuItem(const PumpController& pump_controller) : MenuItem("Reset", false), pump_controller(pump_controller) {}
+ResetPumpSettingsMenuItem::ResetPumpSettingsMenuItem(PumpController& pump_controller) : pump_controller(pump_controller), MenuItem("Reset", false) {}
 
 void ResetPumpSettingsMenuItem::showFeature() {
     display->lcd.clear();

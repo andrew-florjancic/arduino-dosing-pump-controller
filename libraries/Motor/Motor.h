@@ -7,10 +7,6 @@
 
 // Sends input to a DRV8871 motor driver.
 class Motor {
-    private:
-        const uint8_t min_duty_cycle = 0; // Off
-        const uint8_t* in1; // A pointer to the Arduino PWM pin connected to the DRV8871 IN1 pin, nullptr if not used.
-        const uint8_t* in2; // A pointer to the Arduino PWM pin connected to the DRV8871 IN2 pin, nullptr if not used.
     public:
 
         /* Constructor creates a Motor.
@@ -34,5 +30,9 @@ class Motor {
 
         // Turns the motor off.
         void off();
+    private:
+        const uint8_t min_duty_cycle = 0; // Off
+        const uint8_t* in1; // A pointer to the Arduino PWM pin connected to the DRV8871 IN1 pin, nullptr if not used.
+        const uint8_t* in2; // A pointer to the Arduino PWM pin connected to the DRV8871 IN2 pin, nullptr if not used.
 };
 #endif
