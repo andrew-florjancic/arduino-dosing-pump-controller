@@ -8,10 +8,6 @@
 // A Generic Doubly Linked List.
 template <class T> 
 class DoublyLinkedList {
-    private:
-        DLLNode<T>* head = nullptr; // A pointer to the first item in the list.
-        DLLNode<T>* tail = nullptr; // A pointer to the last item in the list.
-        DLLNode<T>* current_item = nullptr; // A pointer to the current item in the list.
     public:
         // Constructor creates an empty DoublyLinkedList. 
         DoublyLinkedList();
@@ -39,7 +35,10 @@ class DoublyLinkedList {
         // in the list contains the data then the current item will be set to the last item in the list.
         // @param data: The value of the item that should be set to the current item.
         void setCurrentItem(T data);
-
+    private:
+        DLLNode<T>* head = nullptr; // A pointer to the first item in the list.
+        DLLNode<T>* tail = nullptr; // A pointer to the last item in the list.
+        DLLNode<T>* current_item = nullptr; // A pointer to the current item in the list.
 };
 
 template <class T> 
