@@ -9,24 +9,6 @@
 
 // A Menu of MenuItems that is itself a MenuItem so it can also be in a Menu.
 class Menu: public MenuItem {
-    private:
-        // An indicator that points to the current item in the menu.
-        const String cursor = "-> ";
-
-        // A list containing items that the user can select and display.
-        DoublyLinkedList<MenuItem*> menu = DoublyLinkedList<MenuItem*>();
-    protected:
-        // Displays the menu starting from the menu's current item.
-        void showFeature();
-
-        // Updates the current item in the menu to the previous item in the menu
-        void leftAction() override;
-
-        // Updates the current item in the menu to the previous item in the menu.
-        void rightAction() override;
-
-        // Displays the current item or dismisses the current menu if the current item's ItemType is back.
-        void selectAction();
     public:
         // Constructor creates a menu.
         // @param: title: The title of the menu that will be used if this menu is part of another menu.
@@ -39,6 +21,24 @@ class Menu: public MenuItem {
         // @param item: The new item to add to the menu.
         // @aram completion: A callback function that should return control to the menu when the menu item is dismissed.
         void addMenuItem(MenuItem* item, void (*completion)());
+    protected:
+        // Displays the menu starting from the menu's current item.
+        void showFeature();
+
+        // Updates the current item in the menu to the previous item in the menu
+        void leftAction() override;
+
+        // Updates the current item in the menu to the previous item in the menu.
+        void rightAction() override;
+
+        // Displays the current item or dismisses the current menu if the current item's ItemType is back.
+        void selectAction();
+    private:
+        // An indicator that points to the current item in the menu.
+        const String cursor = "-> ";
+
+        // A list containing items that the user can select and display.
+        DoublyLinkedList<MenuItem*> menu = DoublyLinkedList<MenuItem*>();
 };
 
 #endif
