@@ -85,7 +85,7 @@ void PumpController::resetPumpSettings() {
     dose_duration = storage_manager.getDoseDuration(pump_id);
     dose_frequency = storage_manager.getDoseFrequency(pump_id);
     dosing_enabled = storage_manager.getDosingEnabled(pump_id);
-    interval_duration = day_length / dose_frequency;
+    interval_duration = day_length / (unsigned long)dose_frequency;
 }
 
 unsigned long PumpController::getIntervalDuration() {
@@ -120,7 +120,7 @@ void PumpController::updateDoseDuration(unsigned long new_value) {
 
 void PumpController::updateDoseFrequency(uint8_t new_value) {
     dose_frequency = new_value;
-    interval_duration = day_length / dose_frequency;
+    interval_duration = day_length / (unsigned long)dose_frequency;
     storage_manager.updateDoseFrequency(pump_id, new_value);
 }
 
