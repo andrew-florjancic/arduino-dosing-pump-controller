@@ -14,11 +14,11 @@ class StartDosingMenuItem : public MenuItem {
         // @param pump1_controller: The PumpController used to control pump 1.
         // @param pump2_controller: The PumpController used to control pump 2.
         // @param pump3_controller: The PumpController used to control pump 3.
-        StartDosingMenuItem(const PumpController& pump1_controller, const PumpController& pump2_controller, const PumpController& pump3_controller);
+        StartDosingMenuItem(PumpController& pump1_controller, PumpController& pump2_controller, PumpController& pump3_controller);
     private:
-        const PumpController& pump1_controller; // The PumpController used to control pump 1.
-        const PumpController& pump2_controller; // The PumpController used to control pump 2.
-        const PumpController& pump3_controller; // The PumpController used to control pump 3.
+        PumpController& pump1_controller; // The PumpController used to control pump 1.
+        PumpController& pump2_controller; // The PumpController used to control pump 2.
+        PumpController& pump3_controller; // The PumpController used to control pump 3.
         const String dosing_message = "Dosing"; // Feature message to be displayed to the user while dosing.
         const String on_message = "On"; // Feature message to be displayed next to pumps that are enabled.
         const String off_message = "Off"; // Feature message to be displayed next to pumps that have not been enabled.

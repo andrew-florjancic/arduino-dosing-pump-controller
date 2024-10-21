@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "SetDoseMenuItem.h"
 
-SetDoseMenuItem::SetDoseMenuItem(const PumpController& pump_controller) : MenuItem("Set Dose", false), pump_controller(pump_controller) {
+SetDoseMenuItem::SetDoseMenuItem(PumpController& pump_controller) : MenuItem("Set Dose", false), pump_controller(pump_controller) {
     // Add dosing frequency options
     frequency_menu.append(2);   // Dose every 12 hours
     frequency_menu.append(3);   // Dose every 8 hours

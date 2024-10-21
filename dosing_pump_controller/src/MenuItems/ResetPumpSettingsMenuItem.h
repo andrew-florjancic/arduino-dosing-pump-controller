@@ -11,9 +11,9 @@
 class ResetPumpSettingsMenuItem : public MenuItem {
     public:
         // Constructor creates a ResetPumpSettingsMenuItem.
-        ResetPumpSettingsMenuItem(const PumpController& pump_controller);
+        ResetPumpSettingsMenuItem(PumpController& pump_controller);
     private:
-        const PumpController pump_controller; // The PumpController used to reset pump settings.
+        PumpController& pump_controller; // The PumpController used to reset pump settings.
         const String confirmation_message = "Confirm: "; // A Feature message to be displayed to the user when confirming pump reset.
         const String yes_message = "Yes"; // A Feature message to be displayed to the user when they have selected to confirm the reset.
         const String no_message = "No"; // A Feature message to be displayed to the user when they have selected to cancel the reset.

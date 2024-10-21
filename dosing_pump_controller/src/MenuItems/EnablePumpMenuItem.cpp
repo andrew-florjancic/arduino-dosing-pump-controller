@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "EnablePumpMenuItem.h"
 
-EnablePumpMenuItem::EnablePumpMenuItem(const PumpController& pump_controller) : MenuItem("Enable Pump", false), pump_controller(pump_controller) {
+EnablePumpMenuItem::EnablePumpMenuItem(PumpController& pump_controller) : pump_controller(pump_controller), MenuItem("Enable Pump", false) {
     is_enabled = pump_controller.getDosingEnabled();
 }
 

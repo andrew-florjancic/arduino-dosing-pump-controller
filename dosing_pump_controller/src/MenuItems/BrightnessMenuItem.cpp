@@ -2,7 +2,7 @@
 //  Copyright © 2024 Andrew Florjancic. All rights reserved.
 #include "BrightnessMenuItem.h"
 
-BrightnessMenuItem::BrightnessMenuItem(const DisplayController& display_controller)
+BrightnessMenuItem::BrightnessMenuItem(DisplayController& display_controller)
 : MenuItem("Brightness", false), display_controller(display_controller) {}
 
 void BrightnessMenuItem::showFeature() {
