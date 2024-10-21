@@ -18,10 +18,13 @@ class SetDoseMenuItem : public MenuItem {
         // A menu of frequency options the user can choose.
         DoublyLinkedList<uint8_t> frequency_menu = DoublyLinkedList<uint8_t>();
         const String frequency_message = "Doses/Day: "; // Feature message to be displayed while the user is setting the dose frequency.
-        const String dose_message = "Dose: "; // Feature message to be displayed while the user is setting the dose duration.
+        const String dose_message = "Dose: "; // Feature message to be displayed while the user is setting the dose quantity.
         const String complete_message = "Doses set"; // Feature message to be displayed at the end of the Feature.
         const PumpController pump_controller; // The PumpController that will be used to update and save pump settings.
 
+        const String ml_message = " ml"; // Feature message to be displayed after dose quantity
+        const String total_message = "Total: "; // Feature message to be displayed while the user is setting the dose quantity
+        
         // Possible states the Feature can be in while presenting.
         enum FeatureState { frequency, dose_hundreds, dose_tens, dose_ones, complete };
         FeatureState feature_state = frequency;  // The current state of the Feature presentation.

@@ -23,7 +23,11 @@ void SetDoseMenuItem::showFeature() {
         case frequency: display->lcd.print(frequency_message + String(frequency_menu.getCurrentItem()->data)); break;
         case dose_hundreds:
         case dose_tens:
-        case dose_ones: display->lcd.print(dose_message + String(dose_quantity)); break; 
+        case dose_ones:
+            display->lcd.print(dose_message + String(dose_quantity) + ml_message);
+            display->lcd.setCursor(0,1);
+            display->lcd.print(total_message + String(dose_quantity * (unsigned long)frequency_menu.getCurrentItem()->data) + ml_message);
+            break; 
         case complete: display->lcd.print(complete_message); break;
     }
 }
