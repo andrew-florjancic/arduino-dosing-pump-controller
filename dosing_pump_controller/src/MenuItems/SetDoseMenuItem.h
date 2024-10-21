@@ -15,8 +15,6 @@ class SetDoseMenuItem : public MenuItem {
         // @param pump_controller: The PumpController that will be used to update and save pump settings.
         SetDoseMenuItem(PumpController& pump_controller);
     private:
-        // A menu of frequency options the user can choose.
-        DoublyLinkedList<uint8_t> frequency_menu = DoublyLinkedList<uint8_t>();
         DoublyLinkedList<uint8_t> frequency_menu = DoublyLinkedList<uint8_t>(); // A menu of frequency options the user can choose.
         PumpController pump_controller; // The PumpController that will be used to update and save pump settings.
         const String frequency_message = "Doses/Day: "; // Feature message to be displayed while the user is setting the dose frequency.
